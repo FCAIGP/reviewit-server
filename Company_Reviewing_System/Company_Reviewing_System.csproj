@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>aspnet-Company_Reviewing_System-52E311DA-2026-4A7A-B258-CF7BC439BF33</UserSecretsId>
+	<Nullable>annotations</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
