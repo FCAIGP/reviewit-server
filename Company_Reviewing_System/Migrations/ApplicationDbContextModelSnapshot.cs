@@ -322,6 +322,9 @@ namespace Company_Reviewing_System.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("CurrentCompanyCompanyId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("CurrentJob")
                         .IsRequired()
                         .HasMaxLength(250)
@@ -386,6 +389,8 @@ namespace Company_Reviewing_System.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CurrentCompanyCompanyId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -655,6 +660,15 @@ namespace Company_Reviewing_System.Migrations
                         .HasForeignKey("CompanyPageCompanyId");
                 });
 
+            modelBuilder.Entity("Company_Reviewing_System.Models.User", b =>
+                {
+                    b.HasOne("Company_Reviewing_System.Models.CompanyPage", "CurrentCompany")
+                        .WithMany("Employees")
+                        .HasForeignKey("CurrentCompanyCompanyId");
+
+                    b.Navigation("CurrentCompany");
+                });
+
             modelBuilder.Entity("Company_Reviewing_System.Models.Vote", b =>
                 {
                     b.HasOne("Company_Reviewing_System.Models.Review", "Review")
@@ -726,6 +740,8 @@ namespace Company_Reviewing_System.Migrations
             modelBuilder.Entity("Company_Reviewing_System.Models.CompanyPage", b =>
                 {
                     b.Navigation("ClaimRequestsHistory");
+
+                    b.Navigation("Employees");
 
                     b.Navigation("Posts");
 

@@ -45,7 +45,7 @@ namespace Company_Reviewing_System.Data
             .HasConversion(
                 v => string.Join(delimeter, v),
                 v => v.Split(delimeter, StringSplitOptions.RemoveEmptyEntries));
-
+            
         }
         #endregion
     }

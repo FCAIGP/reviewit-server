@@ -39,7 +39,7 @@ namespace Company_Reviewing_System.Models
         public CloseOptions CloseStatus { get; set; }
         public ICollection<StatusChangeRequest> StatusHistory { get; set; }
         public ICollection<Review> Reviews { get; set; }
-        [ForeignKey("CurrentCompany")]
+        [InverseProperty("CurrentCompany")]
         public ICollection<User> Employees { get; set; }
         public User? Owner { get; set; }
     }

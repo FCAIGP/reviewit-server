@@ -17,7 +17,6 @@ namespace Company_Reviewing_System.Models
         public string LastName { get; set; }
         [Required, StringLength(250)]
         public string? CurrentJob { get; set; }
-        [ForeignKey("CurrentCompany")]
         public CompanyPage? CurrentCompany { get; set; }
 
         [DataType(DataType.Date)]
