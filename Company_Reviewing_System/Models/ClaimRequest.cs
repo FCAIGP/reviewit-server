@@ -13,5 +13,12 @@ namespace Company_Reviewing_System.Models
         public string ProofOfWork{ get; set; }
         public string LinkedInAccount{ get; set; }
         public User Submitter { get; set; }
+        public ClaimStatus ClaimStatus { get; set; }
+    }
+    public enum ClaimStatus
+    {
+        Approved,
+        Rejected,
+        Pending
     }
 }

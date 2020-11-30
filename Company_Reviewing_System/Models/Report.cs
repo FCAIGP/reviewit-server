@@ -13,4 +13,10 @@ namespace Company_Reviewing_System.Models
 
         public DateTime Date {get; set;}
     }
+    public enum ReportTypes
+    {
+       Spam,
+       Inappropiate,
+       Wrong
+    }
 }
