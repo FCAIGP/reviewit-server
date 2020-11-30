@@ -25,6 +25,6 @@ namespace Company_Reviewing_System.Models
         public CloseOptions CloseStatus { get; set; }
         public ICollection<StatusChangeRequest> StatusHistory { get; set; }
         public ICollection<Review> Reviews { get; set; }
-        public User Owner { get; set; }
+        public User? Owner { get; set; }
     }
 }
