@@ -14,17 +14,17 @@ namespace Company_Reviewing_System.Models
         public string Region { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime ClaimedDate { get; set; }
-        public List<string> Subscribers { get; set; }
+        public ICollection<string> Subscribers { get; set; }
         public string LogoURL { get; set; }
         public bool PendingStatusChange { get; set; }
         public bool IsScoreUpToDate { get; set; }
         public double Score { get; set; }
-        public List<Post> Posts { get; set; }
+        public ICollection<Post> Posts { get; set; }
         public ClaimRequest AcceptedClaimRequest { get; set; }
-        public List<ClaimRequest> ClaimRequestsHistory { get; set; }
+        public ICollection<ClaimRequest> ClaimRequestsHistory { get; set; }
         public CloseOptions CloseStatus { get; set; }
-        public List<StatusChangeRequest> StatusHistory { get; set; }
-        public List<Review> Reviews { get; set; }
+        public ICollection<StatusChangeRequest> StatusHistory { get; set; }
+        public ICollection<Review> Reviews { get; set; }
         public User Owner { get; set; }
     }
 }
