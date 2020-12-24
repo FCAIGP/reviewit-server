@@ -17,7 +17,7 @@ namespace Company_Reviewing_System.Migrations
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.0");
+                .HasAnnotation("ProductVersion", "5.0.1");
 
             modelBuilder.Entity("Company_Reviewing_System.Models.ClaimRequest", b =>
                 {
@@ -326,7 +326,6 @@ namespace Company_Reviewing_System.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CurrentJob")
-                        .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
@@ -346,7 +345,6 @@ namespace Company_Reviewing_System.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Image")
-                        .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
