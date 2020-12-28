@@ -4,16 +4,14 @@ using Company_Reviewing_System.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Company_Reviewing_System.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201224213915_test")]
-    partial class test
+    [DbContext(typeof(AppDbContext))]
+    partial class AppDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,7 +76,7 @@ namespace Company_Reviewing_System.Migrations
                     b.Property<string>("AcceptedClaimRequestClaimRequestId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime>("ClaimedDate")
+                    b.Property<DateTime?>("ClaimedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("CloseStatus")

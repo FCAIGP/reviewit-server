@@ -7,23 +7,26 @@ using System.Text;
 
 namespace Company_Reviewing_System.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<User>
+    public class AppDbContext : IdentityDbContext<User>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public AppDbContext() : base()
+        {
+            
+        }
+
+        public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
         {
         }
-        public DbSet<ClaimRequest> ClaimRequests;
-        public DbSet<CompanyPage> CompanyPages;
-        public DbSet<Post> Posts;
-        public DbSet<Reply> Replies;
-        public DbSet<Report> Reports;
-        public DbSet<Review> Reviews;
-        public DbSet<StatusChangeRequest> StatusChangeRequests;
-        public DbSet<Vote> Votes;
+        public DbSet<ClaimRequest> ClaimRequest { get; set; }
+        public DbSet<CompanyPage> CompanyPage { get; set; }
+        public DbSet<Post> Post { get; set; }
+        public DbSet<Reply> Reply { get; set; }
+        public DbSet<Report> Report { get; set; }
+        public DbSet<Review> Review { get; set; }
+        public DbSet<StatusChangeRequest> StatusChangeRequest { get; set; }
+        public DbSet<Vote> Vote { get; set; }
 
-
-        #region Required
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -47,6 +50,6 @@ namespace Company_Reviewing_System.Data
                 v => v.Split(delimeter, StringSplitOptions.RemoveEmptyEntries));
             
         }
-        #endregion
+
     }
 }

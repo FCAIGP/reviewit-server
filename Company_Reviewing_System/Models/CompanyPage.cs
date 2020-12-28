@@ -22,8 +22,8 @@ namespace Company_Reviewing_System.Models
         public string Region { get; set; }
         [Required, DataType(DataType.Date)]
         public DateTime CreatedDate { get; set; }
-        [Required, DataType(DataType.Date)]
-        public DateTime ClaimedDate { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime? ClaimedDate { get; set; }
         public string[] SubscribersEmails { get; set; } // Email
         [StringLength(250)]
         public string? LogoURL { get; set; } // URL
@@ -42,5 +42,38 @@ namespace Company_Reviewing_System.Models
         [InverseProperty("CurrentCompany")]
         public ICollection<User> Employees { get; set; }
         public User? Owner { get; set; }
+
+        public static implicit operator CompanyPageDto(CompanyPage p)
+        {
+            return new CompanyPageDto()
+            {
+                Name = p.Name,
+                Headquarters = p.Headquarters,
+                Industry = p.Industry,
+                CreatedDate = p.CreatedDate,
+                Owner = p.Owner,
+                LogoURL = p.LogoURL,
+                Region = p.Region,
+                Score = p.Score,
+            };
+        }
+        public static CompanyPage CreateFrom(CompanyPageDto p)
+        {
+            return new CompanyPage()
+            {
+                Name = p.Name,
+                Headquarters = p.Headquarters,
+                Industry = p.Industry,
+                CreatedDate = p.CreatedDate,
+                Owner = p.Owner,
+                LogoURL = p.LogoURL,
+                Region = p.Region,
+                Score = p.Score,
+                PendingStatusChange = false,
+                IsScoreUpToDate = true,
+                CloseStatus = CloseOptions.Open,
+                SubscribersEmails = Array.Empty<string>(),
+            };
+        }
     }
 }

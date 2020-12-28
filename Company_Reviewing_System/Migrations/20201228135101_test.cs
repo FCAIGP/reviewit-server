@@ -132,7 +132,7 @@ namespace Company_Reviewing_System.Migrations
                     Industry = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Region = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ClaimedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ClaimedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     SubscribersEmails = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LogoURL = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     PendingStatusChange = table.Column<bool>(type: "bit", nullable: false),
