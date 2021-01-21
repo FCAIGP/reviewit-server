@@ -41,7 +41,7 @@ namespace Company_Reviewing_System.Controllers
                 return NotFound();
             }
 
-            return View((CompanyPageDto)companyPage);
+            return View(companyPage);
         }
 
         // GET: CompanyPages/Create
