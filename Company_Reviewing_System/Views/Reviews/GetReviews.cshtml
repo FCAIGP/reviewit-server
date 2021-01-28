@@ -1,0 +1,19 @@
+﻿@model ICollection<Company_Reviewing_System.Models.Review>
+
+
+
+<h1>Reviews here</h1>
+
+@foreach(var item in Model)
+{
+    <div class="row content">
+        <ul>
+            <li><b>@Html.DisplayNameFor(model => item.Salary): </b>@Html.DisplayFor(model => item.Salary)</li>
+            <li><b>@Html.DisplayNameFor(model => item.Created): </b>@Html.DisplayFor(model => item.Created)</li>
+            <li><b>@Html.DisplayNameFor(model => item.Contact): </b>@Html.DisplayFor(model => item.Contact)</li>
+            <li><b>@Html.DisplayNameFor(model => item.JobDescription): </b>@Html.DisplayFor(model => item.JobDescription)</li>
+            <li><b>@Html.DisplayNameFor(model => item.Body): </b>@Html.DisplayFor(model => item.Body)</li>
+        </ul>
+    </div>
+    <br />
+}
