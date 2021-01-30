@@ -84,8 +84,17 @@
             @Html.DisplayFor(model => model.CloseStatus)
         </dd>
     </dl>
+
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.CompanyId">Edit</a> |
     <a asp-action="Index">Back to List</a>
+</div>
+<div>
+    <dl>
+        @foreach (var review in Model.Reviews)
+        {
+            review.Body
+        }
+    </dl>
 </div>

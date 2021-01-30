@@ -47,6 +47,7 @@ namespace Company_Reviewing_System.Models
         {
             return new CompanyPageDto()
             {
+                CompanyId = p.CompanyId,
                 Name = p.Name,
                 Headquarters = p.Headquarters,
                 Industry = p.Industry,
@@ -68,7 +69,7 @@ namespace Company_Reviewing_System.Models
                 Owner = p.Owner,
                 LogoURL = p.LogoURL,
                 Region = p.Region,
-                Score = p.Score,
+                Score = 0,
                 PendingStatusChange = false,
                 IsScoreUpToDate = true,
                 CloseStatus = CloseOptions.Open,

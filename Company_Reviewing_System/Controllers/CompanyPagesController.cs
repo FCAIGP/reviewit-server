@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Company_Reviewing_System.Data;
 using Company_Reviewing_System.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Company_Reviewing_System.Controllers
 {
@@ -41,10 +42,11 @@ namespace Company_Reviewing_System.Controllers
                 return NotFound();
             }
 
-            return View((CompanyPageDto)companyPage);
+            return View(companyPage);
         }
 
         // GET: CompanyPages/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -61,13 +63,14 @@ namespace Company_Reviewing_System.Controllers
             if (ModelState.IsValid)
             {
                 companyPage.CreatedDate = DateTime.Now;
+                
                 _context.Add(CompanyPage.CreateFrom(companyPage));
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View((CompanyPageDto)companyPage);
+            return View(companyPage);
         }
-
+        /*
         // GET: CompanyPages/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
@@ -148,6 +151,7 @@ namespace Company_Reviewing_System.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        */
         private bool CompanyPageExists(string id)
         {
             return _context.CompanyPage.Any(e => e.CompanyId == id);
