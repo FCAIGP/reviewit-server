@@ -23,7 +23,7 @@ namespace Company_Reviewing_System.Models
         [Url]
         public string? LinkedInAccount{ get; set; } // URL
 
-        public User Submitter { get; set; }
+        public virtual User Submitter { get; set; }
         
         public ClaimStatus ClaimStatus { get; set; }
     }

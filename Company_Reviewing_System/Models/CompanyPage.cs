@@ -33,15 +33,15 @@ namespace Company_Reviewing_System.Models
         public bool IsScoreUpToDate { get; set; }
         [Required]
         public double Score { get; set; }
-        public ICollection<Post> Posts { get; set; }
-        public ClaimRequest? AcceptedClaimRequest { get; set; }
-        public ICollection<ClaimRequest> ClaimRequestsHistory { get; set; }
+        public virtual ICollection<Post> Posts { get; set; }
+        public virtual ClaimRequest? AcceptedClaimRequest { get; set; }
+        public virtual ICollection<ClaimRequest> ClaimRequestsHistory { get; set; }
         public CloseOptions CloseStatus { get; set; }
-        public ICollection<StatusChangeRequest> StatusHistory { get; set; }
-        public ICollection<Review> Reviews { get; set; }
+        public virtual ICollection<StatusChangeRequest> StatusHistory { get; set; }
+        public virtual ICollection<Review> Reviews { get; set; }
         [InverseProperty("CurrentCompany")]
-        public ICollection<User> Employees { get; set; }
-        public User? Owner { get; set; }
+        public virtual ICollection<User> Employees { get; set; }
+        public virtual User? Owner { get; set; }
 
         public static implicit operator CompanyPageDto(CompanyPage p)
         {

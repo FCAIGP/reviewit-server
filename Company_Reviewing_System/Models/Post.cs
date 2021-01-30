@@ -13,9 +13,9 @@ namespace Company_Reviewing_System.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string PostId { get; set; }
         [Required]
-        public CompanyPage Page{ get; set; }
+        public virtual CompanyPage Page { get; set; }
         [Required]
-        public User Author{ get; set; }
+        public virtual User Author { get; set; }
         [StringLength(10000)]
         public string? Text { get; set; }
         public string[] Images{ get; set; }

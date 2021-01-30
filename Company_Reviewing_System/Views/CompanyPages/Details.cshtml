@@ -94,7 +94,7 @@
     <dl>
         @foreach (var review in Model.Reviews)
         {
-            review.Body
+            @await Html.PartialAsync("../Review/_ReviewBox", review);
         }
     </dl>
 </div>

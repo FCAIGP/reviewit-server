@@ -13,11 +13,11 @@ namespace Company_Reviewing_System.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string ReplyId { get; set; }
         [Required]
-        public Review Parent { get; set; }
+        public virtual Review Parent { get; set; }
         [Required, StringLength(1000)]
         public string Body { get; set; }
         [Required]
-        public User Author { get; set; }
+        public virtual User Author { get; set; }
         [Required, DataType(DataType.Date)]
         public DateTime Date { get; set; }
     }

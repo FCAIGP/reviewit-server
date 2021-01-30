@@ -13,8 +13,8 @@ namespace Company_Reviewing_System.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string VoteId { get; set; }
 
-        public User? User { get; set; }
-        public Review Review { get; set; }
+        public virtual User? User { get; set; }
+        public virtual Review Review { get; set; }
         public bool IsUpVote { get; set; }
     }
 }

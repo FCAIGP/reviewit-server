@@ -14,7 +14,7 @@ namespace Company_Reviewing_System.Models
         public string ReportId { get; set; }
         [Required, StringLength(50)]
         public string AuthorIP { get; set; }
-        public User? Author { get; set; }
+        public virtual User? Author { get; set; }
         [Required, DataType(DataType.Date)]
         public DateTime Date {get; set;}
     }

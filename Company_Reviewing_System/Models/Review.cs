@@ -22,12 +22,12 @@ namespace Company_Reviewing_System.Models
         public string? JobDescription { get; set; }
         [StringLength(10000)]
         public string Body { get; set; }
-        public ICollection<Vote> Votes { get; set; }
-        public ICollection<Reply> Replies { get; set; }
+        public virtual ICollection<Vote> Votes { get; set; }
+        public virtual ICollection<Reply> Replies { get; set; }
         public string[] Tags { get; set; }
-        public ICollection<Report> Reports { get; set; }
+        public virtual ICollection<Report> Reports { get; set; }
         [Required, StringLength(50)]
         public string AuthorIP { get; set; }
-        public User? Author { get; set; }
+        public virtual User? Author { get; set; }
     }
 }

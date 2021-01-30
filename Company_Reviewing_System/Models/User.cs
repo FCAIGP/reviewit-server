@@ -17,7 +17,7 @@ namespace Company_Reviewing_System.Models
         public string LastName { get; set; }
         [StringLength(250)]
         public string? CurrentJob { get; set; }
-        public CompanyPage? CurrentCompany { get; set; }
+        public virtual CompanyPage? CurrentCompany { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime? DateHired { get; set; }
@@ -25,8 +25,8 @@ namespace Company_Reviewing_System.Models
         public string? Bio { get; set; }
         [StringLength(250)]
         public string? Image { get; set; } // Image
-        public ICollection<ClaimRequest> ClaimRequests { get; set; }
-        public ICollection<CompanyPage> OwnedCompanies{ get; set; }
+        public virtual ICollection<ClaimRequest> ClaimRequests { get; set; }
+        public virtual ICollection<CompanyPage> OwnedCompanies{ get; set; }
         public virtual ICollection<Vote> Votes { get; set; }
 
     }
