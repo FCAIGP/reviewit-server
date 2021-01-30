@@ -94,7 +94,8 @@
     <dl>
         @foreach (var review in Model.Reviews)
         {
-            @await Html.PartialAsync("../Review/_ReviewBox", review);
+            @await Html.PartialAsync("../Review/_ReviewBox", review)
         }
     </dl>
+    <a class="btn btn-success text-white" asp-controller="Review" asp-action="AddReviewView" asp-route-id="@Model.CompanyId">Add new Review</a>
 </div>

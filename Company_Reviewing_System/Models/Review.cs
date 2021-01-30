@@ -9,6 +9,7 @@ namespace Company_Reviewing_System.Models
 {
     public class Review
     {
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string ReviewId { get; set; }
@@ -29,5 +30,21 @@ namespace Company_Reviewing_System.Models
         [Required, StringLength(50)]
         public string AuthorIP { get; set; }
         public virtual User? Author { get; set; }
+
+        public static Review CreateFromDto(ReviewDto dto, string ip)
+        {
+            Review ret = new Review
+            {
+                AuthorIP = ip,
+                Created = DateTime.Now,
+                Contact = dto.Contact,
+                Salary = dto.Salary,
+                JobDescription = dto.JobDescription,
+                Body = dto.Body,
+                Tags = dto.Tags,
+            };
+
+            return ret;
+        }
     }
 }
