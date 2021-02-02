@@ -30,6 +30,7 @@ namespace Company_Reviewing_System.Models
         [Required, StringLength(50)]
         public string AuthorIP { get; set; }
         public virtual User? Author { get; set; }
+        public virtual CompanyPage Company { get; set; }
 
         public static Review CreateFromDto(ReviewDto dto, string ip)
         {

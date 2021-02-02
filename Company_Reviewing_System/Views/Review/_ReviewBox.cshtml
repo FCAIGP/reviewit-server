@@ -1,6 +1,21 @@
 ﻿@model Company_Reviewing_System.Models.Review
 
 <div>
-    <label asp-for="@Model.Body"></label>
+    <h4><label asp-for="@Model.Body"></label></h4>
     <span>@Html.DisplayFor(m => m.Body)</span>
+    <div>
+        @if (Model.Replies.Count == 0)
+        {
+            <span>No Replies!</span>
+        }
+        else
+        {
+            @foreach (Reply reply in Model.Replies)
+            {
+                @await Html.PartialAsync("../Reply/_ReplyBox", reply);
+            }
+        }
+        @if (User.Identity.IsAuthenticated)
+            @await Component.InvokeAsync("AddNewReply", new { reviewId = Model.ReviewId })
+    </div>
 </div>

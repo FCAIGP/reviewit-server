@@ -1,0 +1,9 @@
+﻿@model Company_Reviewing_System.Models.ReplyDto
+
+<form asp-controller="Reply" asp-action="CreateReply">
+    <div class="form-group">
+        <input asp-for="ReviewId" type="hidden"/>
+        <input asp-for="Body" class="form-control" />
+        <input type="submit" value="Reply" class="btn btn-primary" />
+    </div>
+</form>

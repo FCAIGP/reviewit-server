@@ -20,5 +20,19 @@ namespace Company_Reviewing_System.Models
         public virtual User Author { get; set; }
         [Required, DataType(DataType.Date)]
         public DateTime Date { get; set; }
+
+
+        public static Reply CreateFromDto(ReplyDto dto, Review parent, User author)
+        {
+            Reply ret = new Reply
+            {
+                Body = dto.Body,
+                Date = DateTime.Now,
+                Author = author,
+                Parent = parent,
+            };
+
+            return ret;
+        }
     }
 }

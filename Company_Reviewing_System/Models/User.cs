@@ -28,6 +28,8 @@ namespace Company_Reviewing_System.Models
         public virtual ICollection<ClaimRequest> ClaimRequests { get; set; }
         public virtual ICollection<CompanyPage> OwnedCompanies{ get; set; }
         public virtual ICollection<Vote> Votes { get; set; }
-
+        
+        [NotMapped]
+        public string FullName { get => FirstName + " " + LastName; }
     }
 }
