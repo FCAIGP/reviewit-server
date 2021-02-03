@@ -1,4 +1,30 @@
 ﻿@model Company_Reviewing_System.Models.Reply
-<div>
-    @Html.DisplayFor(model => model.Author.FullName) on @Html.DisplayFor(model => model.Date) says @Html.DisplayFor(model => model.Body)
-</div>
+
+
+<article class="row">
+    <div class="col-md-2 col-sm-2 col-md-offset-1 col-sm-offset-0 hidden-xs">
+        <figure class="thumbnail">
+            <img class="img-responsive" src="http://www.tangoflooring.ca/wp-content/uploads/2015/07/user-avatar-placeholder.png" />
+            <figcaption class="text-center">username</figcaption>
+        </figure>
+    </div>
+    <!-- TO DO Sort Replies by date-->
+    <div class="col-md-9 col-sm-9">
+        <div class="panel panel-default arrow left">
+            <div class="panel-heading right">Reply</div>
+            <div class="panel-body">
+                <header class="text-left">
+                    <div class="comment-user"><i class="fa fa-user"></i> @Html.DisplayFor(model=>model.Author.FirstName)</div>
+                    <br />
+                    <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> Created on @Html.DisplayFor(model=>model.Date.Date)</time>
+                </header>
+                <div class="comment-post">
+                    <p>
+                        @Html.DisplayFor(model=>model.Body)
+                    </p>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</article>

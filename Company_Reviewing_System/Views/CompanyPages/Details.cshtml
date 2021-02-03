@@ -5,97 +5,96 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
+<div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
+    <div class="row justify-content-center">
+        <div class="col-xl-7 col-lg-9 text-center">
 
-<div>
-    <h4>CompanyPage</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Headquarters)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Headquarters)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Industry)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Industry)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Region)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Region)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ClaimedDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ClaimedDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SubscribersEmails)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SubscribersEmails)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LogoURL)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LogoURL)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PendingStatusChange)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PendingStatusChange)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsScoreUpToDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsScoreUpToDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Score)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Score)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CloseStatus)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CloseStatus)
-        </dd>
-    </dl>
+            <h1 class="text-danger">THIS COMPANY DOES NOT ACCEPT REVIEWS</h1>
+            <h1 class="company-profile-h1">@Html.DisplayFor(model => model.Name)</h1>
+        </div>
+    </div>
+    <div>
+        <img src="~/images/google2.0.0.jpg" width="300" height="300" class="img-thumbnail">
+        <div id="buttons">
+            <ul style="list-style-type:none;">
+                <li>
+                    <label class="switch">
+                        <input type="checkbox" id="togBtn">
+                        <div class="slider round">
+                            <span class="on">Subscribed</span>
+                            <span class="off">Subscribe</span>
+                        </div>
+                    </label>
+                </li>
+                <li>
+                    <button type="button" class="btn btn-secondary">Claim Ownership</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div>
+        <h4>Rating @Html.DisplayFor(model => model.Score)</h4>
+        <div class="results">
+            <div class="results-content">
+                <span class="stars">@Html.DisplayFor(model => model.Score)</span>
+            </div>
+        </div>
+    </div>
+</div>
 
+<br />
+
+<section id="about" class="about">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+            <h2>Company Info</h2>
+        </div>
+        <br />
+        <div class="row content">
+            <div class="col-lg-6">
+                <ul>
+                    <li><i class="fas fa-check-double"></i> <b>@Html.DisplayNameFor(model => model.Headquarters): </b>@Html.DisplayFor(model => model.Headquarters)</li>
+                    <li><i class="fas fa-check-double"></i> <b>@Html.DisplayNameFor(model => model.Industry): </b>@Html.DisplayFor(model => model.Industry)</li>
+                    <li><i class="fas fa-check-double"></i> <b>@Html.DisplayNameFor(model => model.Region): </b>@Html.DisplayFor(model => model.Region)</li>
+                    <li><i class="fas fa-check-double"></i> <b>@Html.DisplayNameFor(model => model.CreatedDate): </b>@Html.DisplayFor(model => model.CreatedDate)</li>
+
+                </ul>
+            </div>
+            <div class="col-lg-6 pt-4 pt-lg-0">
+                <a href="#" class="btn-learn-more">Write a review</a>
+                <a href="#" class="btn-learn-more">View reviews</a>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <h2 class="page-header">Replies on this company</h2>
+            <section class="comment-list">
+                <div>
+                    <dl>
+                        @foreach (var review in Model.Reviews)
+                        {
+                            @await Html.PartialAsync("../Review/_ReviewBox", review)
+                        }
+                    </dl>
+                    <a class="btn btn-success text-white" asp-controller="Review" asp-action="AddReviewView" asp-route-id="@Model.CompanyId">Add new Review</a>
+                </div>
+
+            </section>
+        </div>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.CompanyId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
-<div>
-    <dl>
-        @foreach (var review in Model.Reviews)
-        {
-            @await Html.PartialAsync("../Review/_ReviewBox", review)
-        }
-    </dl>
-    <a class="btn btn-success text-white" asp-controller="Review" asp-action="AddReviewView" asp-route-id="@Model.CompanyId">Add new Review</a>
-</div>
+
+@section Scripts{
+    <script src="~/lib/jquery/Rating.js"></script>
+    <script src="https://kit.fontawesome.com/23a681cc6f.js" crossorigin="anonymous"></script>
+}
+
+@section css{
+    <link href="~/css/company-page.css" rel="stylesheet" />
+}
