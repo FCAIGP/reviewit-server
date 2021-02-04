@@ -1,7 +1,7 @@
 body {
-    font-family: "Open Sans", sans-serif;
+    font-family: "Roboto", sans-serif;
     color: #444444;
-    background-image: linear-gradient(-10deg, #ffffff, #fdf5e6);
+    background-image: linear-gradient(-10deg, #ffffff, #eff2f1);
 }
 
 #buttons{
@@ -12,10 +12,10 @@ body {
 
 .company-profile-h1 {
     margin: 0;
-    font-size: 56px;
+    font-size: 60px;
     font-weight: 700;
     line-height: 72px;
-    color: #124265;
+    color: #2487ce;
     font-family: "Poppins", sans-serif;
 }
 
@@ -164,7 +164,6 @@ input:checked + .slider .off {
 .results-content {
     font-size: 13px;
     display: inline-block;
-    margin-left: 20px;
     vertical-align: top;
     background: url('../images/star.png') 0 0 repeat-x;
     width: 185px;
