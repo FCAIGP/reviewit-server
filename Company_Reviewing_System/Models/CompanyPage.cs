@@ -20,9 +20,8 @@ namespace Company_Reviewing_System.Models
         public string Industry { get; set; }
         [Required, StringLength(50)]
         public string Region { get; set; }
-        [Required, DataType(DataType.Date)]
+        [Required]
         public DateTime CreatedDate { get; set; }
-        [DataType(DataType.Date)]
         public DateTime? ClaimedDate { get; set; }
         public string[] SubscribersEmails { get; set; } // Email
         [StringLength(250)]

@@ -21,7 +21,7 @@ namespace Company_Reviewing_System.Models
 
         [DataType(DataType.Date)]
         public DateTime? DateHired { get; set; }
-        [StringLength(1000)]
+        [StringLength(1000), DataType(DataType.MultilineText)]
         public string? Bio { get; set; }
         [StringLength(250)]
         public string? Image { get; set; } // Image

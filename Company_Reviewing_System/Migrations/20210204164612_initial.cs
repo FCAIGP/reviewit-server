@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Company_Reviewing_System.Migrations
 {
-    public partial class test : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -254,7 +254,7 @@ namespace Company_Reviewing_System.Migrations
                     Tags = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AuthorIP = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     AuthorId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    CompanyPageCompanyId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    CompanyId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -266,11 +266,11 @@ namespace Company_Reviewing_System.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Review_CompanyPage_CompanyPageCompanyId",
-                        column: x => x.CompanyPageCompanyId,
+                        name: "FK_Review_CompanyPage_CompanyId",
+                        column: x => x.CompanyId,
                         principalTable: "CompanyPage",
                         principalColumn: "CompanyId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -453,9 +453,9 @@ namespace Company_Reviewing_System.Migrations
                 column: "AuthorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Review_CompanyPageCompanyId",
+                name: "IX_Review_CompanyId",
                 table: "Review",
-                column: "CompanyPageCompanyId");
+                column: "CompanyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StatusChangeRequest_CompanyPageCompanyId",

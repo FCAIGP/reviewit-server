@@ -16,10 +16,10 @@ namespace Company_Reviewing_System.Models
         public virtual CompanyPage Page { get; set; }
         [Required]
         public virtual User Author { get; set; }
-        [StringLength(10000)]
+        [StringLength(10000), DataType(DataType.MultilineText)]
         public string? Text { get; set; }
         public string[] Images{ get; set; }
-        [Required, DataType(DataType.Date)]
+        [Required]
         public DateTime CreatedDate { get; set; }
     }
 }

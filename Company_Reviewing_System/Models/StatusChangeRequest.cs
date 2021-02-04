@@ -16,9 +16,9 @@ namespace Company_Reviewing_System.Models
         public CloseOptions NewStatus { get; set; }
         [Required, StringLength(100)]
         public string Title { get; set; }
-        [Required, StringLength(1000)]
+        [Required, StringLength(1000), DataType(DataType.MultilineText)]
         public string Description { get; set; }
-        [Required, DataType(DataType.Date)]
+        [Required]
         public DateTime Date { get; set; }
     }
 }

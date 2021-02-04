@@ -28,10 +28,8 @@ namespace Company_Reviewing_System.Controllers
                 //TODO: Test RemoteIpAddress fetcher on an external sever instead of ISS
                 string ip = Request.HttpContext.Connection.RemoteIpAddress.ToString();
 
-
-                Review newReview = Review.CreateFromDto(review, ip);
-                if (User.Identity.IsAuthenticated && !review.IsAnonymous)
-                    newReview.Author = await _context.Users.FindAsync(User.Identity.GetId());
+                User? author = (User.Identity.IsAuthenticated && !review.IsAnonymous) ? await _context.Users.FindAsync(User.Identity.GetId()) : null;
+                Review newReview = Review.CreateFromDto(review, ip, author);
 
                 CompanyPage mine = await _context.CompanyPage.FindAsync(review.CompanyId);
                 await _context.Review.AddAsync(newReview);

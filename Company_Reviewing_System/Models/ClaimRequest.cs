@@ -12,7 +12,7 @@ namespace Company_Reviewing_System.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string ClaimRequestId { get; set; }
-        [Required, StringLength(200, MinimumLength = 20)]
+        [Required, StringLength(200, MinimumLength = 20), DataType(DataType.MultilineText)]
         public string Description { get; set; }
         [Required, StringLength(50, MinimumLength = 5)]
         public string Title { get; set; }

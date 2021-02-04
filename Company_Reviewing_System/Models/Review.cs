@@ -13,7 +13,7 @@ namespace Company_Reviewing_System.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string ReviewId { get; set; }
-        [Required, DataType(DataType.Date)]
+        [Required]
         public DateTime Created { get; set; }
         [EmailAddress]
         public string? Contact { get; set; }
@@ -21,7 +21,7 @@ namespace Company_Reviewing_System.Models
         public int? Salary { get; set; }
         [StringLength(250)]
         public string? JobDescription { get; set; }
-        [StringLength(10000)]
+        [StringLength(10000), DataType(DataType.MultilineText)]
         public string Body { get; set; }
         public virtual ICollection<Vote> Votes { get; set; }
         public virtual ICollection<Reply> Replies { get; set; }
@@ -32,7 +32,7 @@ namespace Company_Reviewing_System.Models
         public virtual User? Author { get; set; }
         public virtual CompanyPage Company { get; set; }
 
-        public static Review CreateFromDto(ReviewDto dto, string ip)
+        public static Review CreateFromDto(ReviewDto dto, string ip, User? author)
         {
             Review ret = new Review
             {
@@ -43,6 +43,7 @@ namespace Company_Reviewing_System.Models
                 JobDescription = dto.JobDescription,
                 Body = dto.Body,
                 Tags = dto.Tags,
+                Author = author,
             };
 
             return ret;

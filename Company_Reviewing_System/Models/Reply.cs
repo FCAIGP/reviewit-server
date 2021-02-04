@@ -14,11 +14,11 @@ namespace Company_Reviewing_System.Models
         public string ReplyId { get; set; }
         [Required]
         public virtual Review Parent { get; set; }
-        [Required, StringLength(1000)]
+        [Required, StringLength(1000), DataType(DataType.MultilineText)]
         public string Body { get; set; }
         [Required]
         public virtual User Author { get; set; }
-        [Required, DataType(DataType.Date)]
+        [Required]
         public DateTime Date { get; set; }
 
 

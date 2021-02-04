@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Company_Reviewing_System.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20201228135101_test")]
-    partial class test
+    [Migration("20210204164612_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -19,7 +19,7 @@ namespace Company_Reviewing_System.Migrations
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.1");
+                .HasAnnotation("ProductVersion", "5.0.2");
 
             modelBuilder.Entity("Company_Reviewing_System.Models.ClaimRequest", b =>
                 {
@@ -247,7 +247,8 @@ namespace Company_Reviewing_System.Migrations
                         .HasMaxLength(10000)
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CompanyPageCompanyId")
+                    b.Property<string>("CompanyId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Contact")
@@ -271,7 +272,7 @@ namespace Company_Reviewing_System.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.HasIndex("CompanyPageCompanyId");
+                    b.HasIndex("CompanyId");
 
                     b.ToTable("Review");
                 });
@@ -646,11 +647,15 @@ namespace Company_Reviewing_System.Migrations
                         .WithMany()
                         .HasForeignKey("AuthorId");
 
-                    b.HasOne("Company_Reviewing_System.Models.CompanyPage", null)
+                    b.HasOne("Company_Reviewing_System.Models.CompanyPage", "Company")
                         .WithMany("Reviews")
-                        .HasForeignKey("CompanyPageCompanyId");
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Author");
+
+                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("Company_Reviewing_System.Models.StatusChangeRequest", b =>

@@ -15,7 +15,7 @@ namespace Company_Reviewing_System.Models
         [Required, StringLength(50)]
         public string AuthorIP { get; set; }
         public virtual User? Author { get; set; }
-        [Required, DataType(DataType.Date)]
+        [Required]
         public DateTime Date {get; set;}
     }
     public enum ReportTypes

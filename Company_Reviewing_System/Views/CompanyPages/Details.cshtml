@@ -1,15 +1,32 @@
 ﻿@model Company_Reviewing_System.Models.CompanyPage
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = Model.Name;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
+    @switch (Model.CloseStatus)
+    {
+        case CloseOptions.ViewOnly:
+        {
+            <h3 class="text-center alert alert-danger">THIS COMPANY DOES NOT ACCEPT REVIEWS</h3>
+            break;
+        }
+        case CloseOptions.ReOpened:
+        {
+            <h3 class="text-center alert alert-info">THIS COMPANY'S PAGE HAS BEEN CLOSED AND REOPENED BEFORE</h3>
+            break;
+        }
+        case CloseOptions.Erased:
+        {
+            <h3 class="text-center alert alert-danger">THIS COMPANY DOES NOT ACCEPT REVIEWS</h3>
+            <h3 class="text-center alert alert-secondary">THIS COMPANY HAS REQUESTED THAT ALL REVIEWS ARE ERASED, TREAD CAREFULLY</h3>
+            break;
+        }
+    }
     <div class="row justify-content-center">
         <div class="col-xl-7 col-lg-9 text-center">
-
-            <h1 class="text-danger">THIS COMPANY DOES NOT ACCEPT REVIEWS</h1>
             <h1 class="company-profile-h1">@Html.DisplayFor(model => model.Name)</h1>
         </div>
     </div>
@@ -73,11 +90,11 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8">
-            <h2 class="page-header">Replies on this company</h2>
+            <h2 class="page-header">Reviews on this company</h2>
             <section class="comment-list">
                 <div>
                     <dl>
-                        @foreach (var review in Model.Reviews)
+                        @foreach (var review in Model.Reviews.OrderBy(r => r.Created))
                         {
                             @await Html.PartialAsync("../Review/_ReviewBox", review)
                         }
