@@ -1,0 +1,43 @@
+﻿@model Company_Reviewing_System.Models.ClaimRequestDto
+
+
+<h1>Claim Ownership Form</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateClaimRequest">
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdentificationCard" class="control-label"></label>
+                <input asp-for="IdentificationCard" class="form-control" />
+                <span asp-validation-for="IdentificationCard" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProofOfWork" class="control-label"></label>
+                <input asp-for="ProofOfWork" class="form-control" />
+                <span asp-validation-for="ProofOfWork" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LinkedInAccount" class="control-label"></label>
+                <input asp-for="LinkedInAccount" class="form-control" />
+                <span asp-validation-for="LinkedInAccount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Send Form" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

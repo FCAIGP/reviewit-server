@@ -44,7 +44,16 @@
                     </label>
                 </li>
                 <li>
-                    <button type="button" class="btn btn-secondary">Claim Ownership</button>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a asp-controller="ClaimRequest" asp-action="CreateClaimRequest" class="btn btn-secondary" asp-route-id="@Model.CompanyId">Claim Ownership</a>
+                    }
+                    else
+                    {
+                        <!-- do nothing or replace with a text pop up thats says "login requuired"-->
+                       <a href="#" class="btn btn-secondary">Claim Ownership</a>
+                    }
+
                 </li>
             </ul>
         </div>

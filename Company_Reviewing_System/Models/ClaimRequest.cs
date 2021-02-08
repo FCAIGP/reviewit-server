@@ -26,6 +26,22 @@ namespace Company_Reviewing_System.Models
         public virtual User Submitter { get; set; }
         
         public ClaimStatus ClaimStatus { get; set; }
+
+        public static ClaimRequest CreateFromDto(ClaimRequestDto request, User submitter)
+        {
+            ClaimRequest ret = new ClaimRequest
+            {
+                ClaimStatus = ClaimStatus.Pending,
+                Description = request.Description,
+                LinkedInAccount = request.LinkedInAccount,
+                Title = request.Title,
+                IdentificationCard = request.IdentificationCard,
+                Submitter = submitter,
+                ProofOfWork = request.ProofOfWork
+            };
+
+            return ret;
+        }
     }
     public enum ClaimStatus
     {
