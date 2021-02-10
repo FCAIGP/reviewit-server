@@ -1,5 +1,5 @@
 # Companies Reviewing System
-![alt text](https://github.com/FCAIGP/Company_Reviewing_System/Views/Shared/assets/logo750x750.png "logo")
+![alt text](https://github.com/FCAIGP/company-reviewing-system/blob/main/Company_Reviewing_System/Views/Shared/assets/logo750x750.png?raw=true "logo")
 ## Project Overview
 It's a web application platform that is responsible for reviewing and scoring the companies and the employees have the right to write their feedback for the companies they had worked for,
 analyzing these ***english written reviews*** using a **Machine Learning** approach.
