@@ -1,0 +1,32 @@
+﻿@model Company_Reviewing_System.Models.UserDto
+
+@{
+    ViewData["Title"] = $"{Model.FullName} Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>User Profile of @Model.FullName</h1>
+<h2>@Html.DisplayFor(m => m.UserName)</h2>
+<div>
+    <h3>Bio</h3>
+    <div>
+        <p>
+            @Html.DisplayFor(model => model.Bio)
+        </p>
+    </div>
+    <h3>Profile Picture</h3>
+    <div>
+        <img src="@Model.Image??http://www.tangoflooring.ca/wp-content/uploads/2015/07/user-avatar-placeholder.png" />
+    </div>
+    <h3>Current Job</h3>
+    <div>
+        @if (Model.CurrentCompany != null)
+        {
+            <span> Works for <a asp-area="" asp-controller="CompanyPages" asp-action="Details" asp-route-id="@Model.CurrentCompany.CompanyId">@Model.CurrentCompany.Name</a></span>
+            <h4>Job Description</h4>
+            <div>@Html.DisplayFor(m => m.CurrentJob)</div>
+
+            <span> Since @Html.DisplayFor(m => m.DateHired) </span>
+        }
+    </div>
+</div>
