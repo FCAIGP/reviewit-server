@@ -27,6 +27,18 @@ namespace Company_Reviewing_System.Models
         
         public ClaimStatus ClaimStatus { get; set; }
 
+        public static implicit operator ClaimRequestDto(ClaimRequest c)
+        {
+            return new ClaimRequestDto()
+            {
+                Description = c.Description,
+                LinkedInAccount = c.LinkedInAccount,
+                Title = c.Title,
+                IdentificationCard = c.IdentificationCard,
+                 ProofOfWork = c.ProofOfWork
+            };
+        }
+
         public static ClaimRequest CreateFromDto(ClaimRequestDto request, User submitter)
         {
             ClaimRequest ret = new ClaimRequest

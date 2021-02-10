@@ -1,12 +1,14 @@
 ﻿using Company_Reviewing_System.Data;
 using Company_Reviewing_System.Models;
 using Company_Reviewing_System.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Company_Reviewing_System.Controllers
 {
@@ -18,7 +20,7 @@ namespace Company_Reviewing_System.Controllers
             _context = context;
         }
         
-
+        [Authorize]
         public async Task<IActionResult> CreateClaimRequest(ClaimRequestDto request, string id)
         {
             if(ModelState.IsValid)
@@ -33,6 +35,15 @@ namespace Company_Reviewing_System.Controllers
             }
             // shouldn't happen
             return View("CreateClaimRequest");
+        }
+        // GET: ViewPendingRequests
+        [Authorize(Roles =Roles.Admin)]
+        public async Task<IActionResult> ViewPendingRequests()
+        {
+           
+            bool x = User.IsInRole(Roles.Admin);
+            bool y = User.IsInRole(Roles.Admin);
+            return View(await _context.ClaimRequest.Where(x => x.ClaimStatus == ClaimStatus.Pending).Cast<ClaimRequestDto>().ToListAsync());
         }
     }
 }

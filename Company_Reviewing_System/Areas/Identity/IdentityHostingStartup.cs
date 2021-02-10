@@ -17,9 +17,11 @@ namespace Company_Reviewing_System.Areas.Identity
         public void Configure(IWebHostBuilder builder)
         {
             builder.ConfigureServices((context, services) => {
-                
+
                 services.AddDefaultIdentity<Models.User>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<Data.AppDbContext>();
+
 
                 services.Configure<IdentityOptions>(options =>
                 {
