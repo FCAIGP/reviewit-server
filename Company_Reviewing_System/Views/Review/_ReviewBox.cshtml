@@ -1,6 +1,32 @@
 ﻿@model Company_Reviewing_System.Models.Review
 
-                                          
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).on('click', '#@Html.DisplayFor(m => m.ReviewId)', function (e) {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("AddVote","Vote")",
+                data: { reviewID: this.value, is_upvote: true },
+                dataType:'json',
+                success: function (response) {
+                    if (response.success) {
+                        alert(response.responseText);
+                    }
+                    else {
+                        alert(response.responseText);
+                    }
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+            return false;
+        });
+    </script>
+
+</head>
+
 <div>
     <article class="row mb-3 mt-3">
         <div class="col-md-2 col-sm-2 hidden-xs">
@@ -30,11 +56,11 @@
                     <br />
                     <div class="comment-post">
                         <p>
-                            @Html.DisplayFor(m=>m.Body)
+                            @Html.DisplayFor(m => m.Body)
                         </p>
                     </div>
                     <p class="text-right">
-                        <a href="#" class="buttons btn btn-outline-secondary btn-sm"><i class="fas fa-arrow-up"></i> Upvote</a>
+                        <button id="@Html.DisplayFor(m=>m.ReviewId)" value="@Html.DisplayFor(m=>m.ReviewId)" class="buttons btn btn-outline-secondary btn-sm"><i class="fas fa-arrow-up"></i> Upvote</button>
                         <a href="#" class="buttons btn btn-outline-secondary btn-sm"><i class="fas fa-arrow-down"></i> Downvote</a>
                         <a href="#" class="buttons btn btn-outline-secondary btn-sm"><i class="fa fa-reply"></i> Reply</a>
                         <a href="#" class="buttons btn btn-outline-secondary btn-sm"><i class="fas fa-exclamation"></i> Report</a>
@@ -43,27 +69,28 @@
             </div>
         </div>
     </article>
-    
+
     <div>
 
-            @foreach (Reply reply in Model.Replies.OrderBy(r=>r.Date))
-            {
-                @await Html.PartialAsync("../Reply/_ReplyBox", reply);
-            }
+        @foreach (Reply reply in Model.Replies.OrderBy(r => r.Date))
+        {
+            @await Html.PartialAsync("../Reply/_ReplyBox", reply);
+        }
         <article class="row">
             <div class="col-md-11 col-sm-11 col-md-offset-1">
                 @if (User.Identity.IsAuthenticated)
                     @await Component.InvokeAsync("AddNewReply", new { reviewId = Model.ReviewId })
             </div>
         </article>
-</div>
+    </div>
 </div>
 
 
 @section script{
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="~/js/vote.js"></script>
 }
 
 @section css{
-    <link href="~/css/reviews.css" rel="stylesheet"/> 
+    <link href="~/css/reviews.css" rel="stylesheet" />
 }
