@@ -1,0 +1,29 @@
+﻿
+
+@{
+    ViewData["Title"] = "View Pending Requests";
+}
+
+
+
+<h1>Pending Requests</h1>
+
+<div class="col-12 border p-3">
+    <table id="DT_load" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Title</th>
+                <th>Identification Card</th>
+                <th>Proof of Work</th>
+                <th>LinkedInAccount</th>
+                <th></th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+
+@section scripts{ 
+   <script src="~/js/claimRequestList.js"></script>
+}

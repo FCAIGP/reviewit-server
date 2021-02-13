@@ -20,9 +20,15 @@ namespace Company_Reviewing_System.Controllers
             _context = context;
         }
         
+        public IActionResult Index()
+        {
+            return View();
+        }
+
         [Authorize]
         public async Task<IActionResult> CreateClaimRequest(ClaimRequestDto request, string id)
         {
+            ModelState.Remove("ClaimRequestId");
             if(ModelState.IsValid)
             {
                 User submitter = await _context.Users.FindAsync(User.Identity.GetId());
@@ -36,11 +42,32 @@ namespace Company_Reviewing_System.Controllers
             // shouldn't happen
             return View("CreateClaimRequest");
         }
+
+        #region API Calls
         // GET: ViewPendingRequests
         [Authorize(Roles =Roles.Admin)]
+        [HttpGet]
         public async Task<IActionResult> ViewPendingRequests()
         {
-            return View(await _context.ClaimRequest.Where(x => x.ClaimStatus == ClaimStatus.Pending).Cast<ClaimRequestDto>().ToListAsync());
+            return Json(new { data = await _context.ClaimRequest.Cast<ClaimRequestDto>().ToListAsync() });
+            // return View(await _context.ClaimRequest.Where(x => x.ClaimStatus == ClaimStatus.Pending).Cast<ClaimRequestDto>().ToListAsync());
         }
+        [HttpPost]
+        public async Task<IActionResult> Accept(string id)
+        {
+            ClaimRequest request = await _context.ClaimRequest.FindAsync(id);
+            request.ClaimStatus = ClaimStatus.Approved;
+            await _context.SaveChangesAsync();
+            return  Json(new { success = true, message = "Accepted the request" });
+        }
+        [HttpPost]
+        public async Task<IActionResult> Reject(string id)
+        {
+            ClaimRequest request = await _context.ClaimRequest.FindAsync(id);
+            request.ClaimStatus = ClaimStatus.Rejected;
+            await _context.SaveChangesAsync();
+            return Json(new { success = true, message = "Rejected the request" });
+        }
+        #endregion
     }
 }

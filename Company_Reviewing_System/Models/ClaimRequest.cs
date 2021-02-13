@@ -31,11 +31,13 @@ namespace Company_Reviewing_System.Models
         {
             return new ClaimRequestDto()
             {
+                ClaimStatus = c.ClaimStatus,
+                ClaimRequestId = c.ClaimRequestId,
                 Description = c.Description,
                 LinkedInAccount = c.LinkedInAccount,
                 Title = c.Title,
                 IdentificationCard = c.IdentificationCard,
-                 ProofOfWork = c.ProofOfWork
+                ProofOfWork = c.ProofOfWork
             };
         }
 

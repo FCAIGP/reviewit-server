@@ -7,10 +7,13 @@ namespace Company_Reviewing_System.Models
 {
     public class ClaimRequestDto
     {
+        public string ClaimRequestId { get; set; }
         public string Description { get; set; }
         public string Title { get; set; }
         public string IdentificationCard { get; set; }
         public string ProofOfWork { get; set; }
         public string? LinkedInAccount { get; set; }
+
+        public ClaimStatus ClaimStatus { get; set; }
     }
 }
