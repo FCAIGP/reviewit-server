@@ -40,9 +40,6 @@ namespace Company_Reviewing_System.Controllers
         [Authorize(Roles =Roles.Admin)]
         public async Task<IActionResult> ViewPendingRequests()
         {
-           
-            bool x = User.IsInRole(Roles.Admin);
-            bool y = User.IsInRole(Roles.Admin);
             return View(await _context.ClaimRequest.Where(x => x.ClaimStatus == ClaimStatus.Pending).Cast<ClaimRequestDto>().ToListAsync());
         }
     }
