@@ -1,10 +1,14 @@
 ﻿var dataTable;
-
+var f;
 $(document).ready(function () {
     loadDataTable();
 });
 
 function loadDataTable() {
+    f = true;
+    // to do important
+    // remove the alert message and figure out why there is a warning
+    $.fn.dataTable.ext.errMode = 'none';
     dataTable = $('#DT_load').DataTable({
         "ajax": {
             "url": "/ClaimRequest/ViewPendingRequests/",
@@ -18,20 +22,27 @@ function loadDataTable() {
             { "data": "proofOfWork", "width": "20%" },
             { "data": "linkedInAccount", "width": "20%" },
             {
-                "data": "claimRequestId",
-                "status" : "claimStatus",
-                "render": function (data,status) {
-                    if (status == 1) {
-                        return `<div class="text-center">
-                                <p>Approved</p>
-                                </div>`;
+                "data": "claimStatus",
+                "render": function (data) {
+                    if (data == 0) {
+                        f = false;
+                        return `<p>Accepted</p>`;
                     }
-                    else if (status == 2) {
-                        return `<div class="text-center">
-                                <p>Rejected</p>
-                                </div>`;
+                    else if (data == 1) {
+                        f = false;
+                        return `<p>Rejected</p>`;
                     }
                     else {
+                        f = true;
+                        return `<p>Pending</p>`
+                    }
+                }, "width":"40%"
+            },
+            {
+                "data": "claimRequestId",
+                "render": function (data) {
+                    if (f == true) {
+                        f = false;
                         return `<div class="text-center">
                         <a onclick=accept('/ClaimRequest/Accept?id='+'${data}') class='btn btn-success text-white' style='cursor:pointer; width:80px;'>
                             ACCEPT
@@ -42,6 +53,9 @@ function loadDataTable() {
                             REJECT
                         </a>
                         </div>`;
+                    }
+                    else {
+
                     }
                     }, "width": "40%"
                     
