@@ -8,16 +8,19 @@ using Microsoft.EntityFrameworkCore;
 using Company_Reviewing_System.Data;
 using Company_Reviewing_System.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace Company_Reviewing_System.Controllers
 {
     public class CompanyPagesController : Controller
     {
         private readonly AppDbContext _context;
-
-        public CompanyPagesController(AppDbContext context)
+        private readonly IWebHostEnvironment hosting;
+        public CompanyPagesController(AppDbContext context, IWebHostEnvironment hosting)
         {
             _context = context;
+            this.hosting = hosting;
         }
 
         // GET: CompanyPages
@@ -62,8 +65,16 @@ namespace Company_Reviewing_System.Controllers
             ModelState.Remove("CompanyId");
             if (ModelState.IsValid)
             {
+                string logoName = string.Empty;
+                if(companyPage.Logo != null)
+                {
+                    string uploads = Path.Combine(hosting.WebRootPath, "companies_logos");
+                    logoName = companyPage.Logo.FileName;
+                    string fullPath = Path.Combine(uploads, logoName);
+                    companyPage.Logo.CopyTo(new FileStream(fullPath, FileMode.Create));
+                }
                 companyPage.CreatedDate = DateTime.Now;
-                
+                companyPage.LogoURL = logoName;
                 _context.Add(CompanyPage.CreateFrom(companyPage));
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

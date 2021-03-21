@@ -1,4 +1,5 @@
 ﻿using Company_Reviewing_System.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace Company_Reviewing_System.Models
         public string Industry { get; set; }
         public string Region { get; set; }
         public DateTime CreatedDate { get; set; }
+        public IFormFile Logo { get; set; }
         public string? LogoURL { get; set; } // URL
         public double Score { get; set; }
         public User? Owner { get; set; }

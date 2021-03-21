@@ -31,7 +31,11 @@
         </div>
     </div>
     <div>
+        <!--
         <img src="~/images/google2.0.0.jpg" width="300" height="300" class="img-thumbnail">
+        -->
+        <img src="~/companies_logos/@Html.DisplayFor(model=>model.LogoURL)" width="300" height="300" class="img-thumbnail">
+
         <div id="buttons">
             <ul style="list-style-type:none;">
                 <li>
@@ -51,7 +55,7 @@
                     else
                     {
                         <!-- do nothing or replace with a text pop up thats says "login requuired"-->
-                       <a href="#" class="btn btn-secondary">Claim Ownership</a>
+                        <a href="#" class="btn btn-secondary">Claim Ownership</a>
                     }
 
                 </li>

@@ -11,7 +11,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -34,9 +34,9 @@
                 <span asp-validation-for="Region" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="LogoURL" class="control-label"></label>
-                <input asp-for="LogoURL" class="form-control" />
-                <span asp-validation-for="LogoURL" class="text-danger"></span>
+                <label asp-for="Logo" class="control-label">Company Logo</label>
+                <input type="file" name="Logo" asp-for="Logo"/>
+                <span asp-validation-for="Logo" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
