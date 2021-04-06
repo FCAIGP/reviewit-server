@@ -1,9 +1,0 @@
-﻿@model Company_Reviewing_System.Models.ReplyDto
-
-<form class="form-inline" asp-controller="Reply" asp-action="CreateReply">
-    <div class="form-group row col-md-11 col-sm-11">
-        <input asp-for="ReviewId" type="hidden"/>
-        <textarea  asp-for="Body" class="offset-md-4 col-md-9 form-control"  rows="4" cols="50"></textarea>
-        <input type="submit" value="Reply" class="col-md-3 btn btn-primary offset-4" />
-    </div>
-</form>
