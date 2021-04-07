@@ -48,7 +48,7 @@ namespace ReviewItServer.Data
                     UserName = "admin",
                     SecurityStamp = Guid.NewGuid().ToString(),
                 };
-                await userManager.CreateAsync(user, "admin");
+                await userManager.CreateAsync(admin, "admin");
             }
             await userManager.AddToRoleAsync(admin, Roles.Admin);
 
