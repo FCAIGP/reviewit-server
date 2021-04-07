@@ -13,7 +13,9 @@ namespace ReviewItServer.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string VoteId { get; set; }
 
+        public string UserId { get; set; }
         public virtual User User { get; set; }
+        public string ReviewId { get; set; }
         public virtual Review Review { get; set; }
         public bool IsUpVote { get; set; }
     }
