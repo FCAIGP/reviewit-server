@@ -17,6 +17,7 @@ namespace ReviewItServer.Models
         public string LastName { get; set; }
         [StringLength(250)]
         public string CurrentJob { get; set; }
+        public string CurrentCompanyCompanyId { get; set; }
         public virtual Company CurrentCompany { get; set; }
 
         [DataType(DataType.Date)]

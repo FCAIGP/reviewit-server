@@ -9,34 +9,21 @@ namespace ReviewItServer.DTOs
 {
     public class UserDto
     {
+        [Required]
+        public string UserName { get; set; }
+        [Required]
+        public string Email { get; set; }
+        [Required]
+        public string Password { get; set; }
+        [Required]
         public string FirstName { get; set; }
+        [Required]
         public string LastName { get; set; }
-        [DataType(DataType.MultilineText)]
-        public string Bio { get; set; }
-        public Company CurrentCompany { get; set; }
         public string CurrentJob { get; set; }
+        public string CurrentCompanyId { get; set; }
         [DataType(DataType.Date)]
         public DateTime? DateHired { get; set; }
-        public string UserName { get; set; }
-        public string FullName { get => FirstName + " " + LastName; }
+        public string Bio { get; set; }
         public string Image { get; set; }
-        public string Email { get; set; }
-
-        public static implicit operator UserDto(User u)
-        {
-            return new UserDto()
-            {
-
-                FirstName = u.FirstName,
-                LastName = u.LastName,
-                Bio = u.Bio,
-                CurrentCompany = u.CurrentCompany,
-                CurrentJob = u.CurrentJob,
-                DateHired = u.DateHired,
-                UserName = u.UserName,
-                Image = u.Image,
-                Email = u.Email,
-            };
-        }
     }
 }

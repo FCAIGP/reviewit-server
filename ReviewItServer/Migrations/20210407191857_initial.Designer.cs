@@ -10,7 +10,7 @@ using ReviewItServer.Data;
 namespace ReviewItServer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210406200216_initial")]
+    [Migration("20210407191857_test")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

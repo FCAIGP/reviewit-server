@@ -26,4 +26,13 @@ namespace ReviewItServer.MapProfiles
             CreateMap<DTOs.ReplyDTO, Models.Reply>();
         }
     }
+    public class UserProfile : Profile
+    {
+        public UserProfile()
+        {
+            CreateMap<DTOs.UserDto, Models.User>()
+                .ForMember(x => x.CurrentCompanyCompanyId, opt => opt.MapFrom(y => y.CurrentCompanyId))
+                .ForSourceMember(x => x.Password, opt => opt.DoNotValidate());
+        }
+    }
 }
