@@ -20,15 +20,15 @@ namespace ReviewItServer.Models
         [Required, StringLength(250)]
         public string IdentificationCard { get; set; } // Image
         [Required, StringLength(250)]
-        public string ProofOfWork{ get; set; } // Image
+        public string ProofOfWork { get; set; } // Image
         [Url]
-        public string LinkedInAccount{ get; set; } // URL
+        public string LinkedInAccount { get; set; } // URL
 
         public virtual User Submitter { get; set; }
-        
         public ClaimStatus ClaimStatus { get; set; }
-        [InverseProperty("ClaimRequestHistory")]
+        [ForeignKey(nameof(Company))]
         public string CompanyId { get; set; }
+        public virtual Company Company {get; set;}
     }
     public enum ClaimStatus
     {

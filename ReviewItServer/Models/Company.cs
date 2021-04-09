@@ -36,7 +36,10 @@ namespace ReviewItServer.Models
         [Required]
         public double Score { get; set; }
         public virtual ICollection<Post> Posts { get; set; }
+        [ForeignKey(nameof(AcceptedClaimRequest)), Column("AcceptedClaimRequestClaimRequestId")]
+        public string AcceptedClaimRequestId { get; set; }
         public virtual ClaimRequest AcceptedClaimRequest { get; set; }
+        [InverseProperty(nameof(ClaimRequest.Company))]
         public virtual ICollection<ClaimRequest> ClaimRequestsHistory { get; set; }
         public CloseOptions CloseStatus { get; set; }
         public virtual ICollection<StatusChangeRequest> StatusHistory { get; set; }
