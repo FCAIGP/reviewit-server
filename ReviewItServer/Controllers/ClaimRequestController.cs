@@ -75,14 +75,14 @@ namespace ReviewItServer.Controllers
 
         [Authorize(Roles = Roles.Admin)]
         [HttpPut("{id}/accept")]
-        public async Task<ActionResult> accept(string id)
+        public async Task<ActionResult> Accept(string id)
         {
             return await ChangeStatus(id, ClaimStatus.Approved);
         }
 
         [Authorize(Roles = Roles.Admin)]
         [HttpPut("{id}/reject")]
-        public async Task<ActionResult> reject(string id)
+        public async Task<ActionResult> Reject(string id)
         {
             return await ChangeStatus(id, ClaimStatus.Rejected);
         }
@@ -102,7 +102,8 @@ namespace ReviewItServer.Controllers
                 
                 if(newStatus == ClaimStatus.Approved)
                 {
-                    var company = await _context.Companies.FindAsync(claimRequest.CompanyId);
+                    _context.Entry(claimRequest).Reference(b => b.Company).Load();
+                    var company = claimRequest.Company;
                     company.AcceptedClaimRequest = claimRequest;
                     company.ClaimedDate = DateTime.Now;
                     company.Owner = claimRequest.Submitter;
