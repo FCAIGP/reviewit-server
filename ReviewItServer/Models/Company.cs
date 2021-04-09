@@ -2,6 +2,7 @@
 using ReviewItServer.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -52,6 +53,8 @@ namespace ReviewItServer.Models
             CloseStatus = CloseOptions.Open;
             SubscribersEmails = Array.Empty<string>();
             CreatedDate = DateTime.Now;
+            ClaimRequestsHistory = new Collection<ClaimRequest>();
+            AcceptedClaimRequest = null;
         }
     }
 }

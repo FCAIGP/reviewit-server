@@ -51,6 +51,7 @@ namespace ReviewItServer
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.Configure<IdentityOptions>(options =>
             {
                 // Default Password settings.

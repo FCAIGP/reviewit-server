@@ -35,4 +35,12 @@ namespace ReviewItServer.MapProfiles
                 .ForSourceMember(x => x.Password, opt => opt.DoNotValidate());
         }
     }
+    public class ClaimRequestProfile : Profile
+    {
+        public ClaimRequestProfile()
+        {
+            CreateMap<Models.ClaimRequest, ViewModels.ClaimRequestView>();
+            CreateMap<DTOs.ClaimRequestDTO, Models.ClaimRequest>();
+        }
+    }
 }
