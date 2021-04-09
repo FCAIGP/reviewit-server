@@ -27,7 +27,8 @@ namespace ReviewItServer.Models
         public virtual User Submitter { get; set; }
         
         public ClaimStatus ClaimStatus { get; set; }
-
+        [InverseProperty("ClaimRequestHistory")]
+        public string CompanyId { get; set; }
     }
     public enum ClaimStatus
     {

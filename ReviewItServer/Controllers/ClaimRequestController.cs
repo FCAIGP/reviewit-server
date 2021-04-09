@@ -64,7 +64,7 @@ namespace ReviewItServer.Controllers
             var claimRequest = _mapper.Map<ClaimRequest>(dto);
             claimRequest.Submitter = user;
             claimRequest.ClaimStatus = ClaimStatus.Pending;
-            
+            claimRequest.CompanyId = dto.CompanyID;
 
             company.ClaimRequestsHistory.Add(claimRequest);
             await _context.ClaimRequests.AddAsync(claimRequest);
@@ -102,32 +102,18 @@ namespace ReviewItServer.Controllers
                 
                 if(newStatus == ClaimStatus.Approved)
                 {
-                    // var user = await _context.Companies.Include(x => x.ClaimRequestsHistory).FirstOrDefault(x => x.ClaimRequestsHistory.ClaimRequestId) == claimRequest.ClaimRequestId);
-                    // find better way to do this
-                    var companies = await _context.Companies.ToListAsync();
-                    Company targetCompany = null;
-                    foreach(Company company in companies)
-                    {
-                        foreach(ClaimRequest request in company.ClaimRequestsHistory)
-                        {
-                            if(request.ClaimRequestId == claimRequest.ClaimRequestId)
-                            {
-                                targetCompany = company;
-                            }
-                            
-                        }
-                    }
-
-                    targetCompany.AcceptedClaimRequest = claimRequest;
-                    targetCompany.ClaimedDate = DateTime.Now;
-                    targetCompany.Owner = claimRequest.Submitter;
-                    targetCompany.PendingStatusChange = false;
+                    var company = await _context.Companies.FindAsync(claimRequest.CompanyId);
+                    company.AcceptedClaimRequest = claimRequest;
+                    company.ClaimedDate = DateTime.Now;
+                    company.Owner = claimRequest.Submitter;
+                    company.PendingStatusChange = false;
                     await _context.SaveChangesAsync();
 
                     return Ok(new { action = "changed", message = $"Approved Claim Request." });
                 }
                 else if(newStatus == ClaimStatus.Rejected)
                 {
+                    await _context.SaveChangesAsync();
                     return Ok(new { action = "changed", message = $"Rejected Claim Request." });
                 }
 
