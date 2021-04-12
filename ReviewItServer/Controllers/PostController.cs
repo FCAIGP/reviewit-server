@@ -98,11 +98,26 @@ namespace ReviewItServer.Controllers
         [Authorize]
         public async Task<IActionResult> UpdatePost(string id, PostDTO dto)
         {
+            string ID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _context.Users.FindAsync(ID);
+            if (user == null)
+            {
+                return BadRequest("Authentication token doesn't correspond to a valid user.");
+            }
+
             var post = await _context.Posts.FindAsync(id);
             if (post == null)
             {
                 return NotFound();
             }
+
+            _context.Entry(post).Reference(b => b.Company).Load();
+            var company = post.Company;
+            if (company.OwnerId != user.Id)
+            {
+                return BadRequest("You can't update post since you are not the owner of the page.");
+            }
+
             _mapper.Map(dto, post);
             try
             {
