@@ -126,5 +126,17 @@ namespace ReviewItServer.Controllers
             await _context.Entry(companyPage).Collection(v => v.Reviews).LoadAsync();
             return companyPage.Reviews.Select(v=>_mapper.Map<ReviewView>(v)).ToList();
         }
+
+        [HttpGet("{id}/posts")]
+        public async Task<ActionResult<IEnumerable<PostView>>> GetPosts(string id)
+        {
+            var companyPage = await _context.Companies.FindAsync(id);
+            if (companyPage == null)
+            {
+                return NotFound();
+            }
+            await _context.Entry(companyPage).Collection(v => v.Posts).LoadAsync();
+            return companyPage.Posts.Select(v => _mapper.Map<PostView>(v)).ToList();
+        }
     }
 }

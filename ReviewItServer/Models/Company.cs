@@ -35,6 +35,7 @@ namespace ReviewItServer.Models
         public bool IsScoreUpToDate { get; set; }
         [Required]
         public double Score { get; set; }
+
         public virtual ICollection<Post> Posts { get; set; }
         [ForeignKey(nameof(AcceptedClaimRequest)), Column("AcceptedClaimRequestClaimRequestId")]
         public string AcceptedClaimRequestId { get; set; }
@@ -46,6 +47,7 @@ namespace ReviewItServer.Models
         public virtual ICollection<Review> Reviews { get; set; }
         [InverseProperty("CurrentCompany")]
         public virtual ICollection<User> Employees { get; set; }
+        [ForeignKey(nameof(OwnerId)), Column("OwnerId")]
         public string OwnerId { get; set; }
         public virtual User Owner { get; set; }
         public Company()
@@ -58,6 +60,7 @@ namespace ReviewItServer.Models
             CreatedDate = DateTime.Now;
             ClaimRequestsHistory = new Collection<ClaimRequest>();
             AcceptedClaimRequest = null;
+            Posts = new Collection<Post>();
         }
     }
 }

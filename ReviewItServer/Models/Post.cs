@@ -12,8 +12,9 @@ namespace ReviewItServer.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string PostId { get; set; }
-        [Required]
-        public virtual Company Page { get; set; }
+        [ForeignKey(nameof(Company)), Column("PageCompanyId")]
+        public string CompanyId { get; set; }
+        public virtual Company Company { get; set; }
         [Required]
         public virtual User Author { get; set; }
         [StringLength(10000), DataType(DataType.MultilineText)]

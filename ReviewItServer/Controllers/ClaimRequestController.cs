@@ -106,7 +106,7 @@ namespace ReviewItServer.Controllers
                     var company = claimRequest.Company;
                     company.AcceptedClaimRequest = claimRequest;
                     company.ClaimedDate = DateTime.Now;
-                    company.Owner = claimRequest.Submitter;
+                    company.OwnerId = claimRequest.SubmitterId;
                     company.PendingStatusChange = false;
                     await _context.SaveChangesAsync();
 

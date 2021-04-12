@@ -23,7 +23,8 @@ namespace ReviewItServer.Models
         public string ProofOfWork { get; set; } // Image
         [Url]
         public string LinkedInAccount { get; set; } // URL
-
+        [ForeignKey(nameof(User))]
+        public string SubmitterId { get; set; }
         public virtual User Submitter { get; set; }
         public ClaimStatus ClaimStatus { get; set; }
         [ForeignKey(nameof(Company))]

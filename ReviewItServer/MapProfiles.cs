@@ -43,4 +43,13 @@ namespace ReviewItServer.MapProfiles
             CreateMap<DTOs.ClaimRequestDTO, Models.ClaimRequest>();
         }
     }
+
+    public class PostProfile : Profile
+    {
+        public PostProfile()
+        {
+            CreateMap<Models.Post, ViewModels.PostView>();
+            CreateMap<DTOs.PostDTO, Models.Post>();
+        }
+    }
 }
