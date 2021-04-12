@@ -64,5 +64,62 @@ namespace ReviewItServer.Controllers
             await _context.SaveChangesAsync();
             return CreatedAtAction("GetPost", new { id = post.PostId }, _mapper.Map<PostView>(post));
         }
+
+        [HttpDelete]
+        [Authorize]
+        public async Task<IActionResult> DeletePost(string id)
+        {
+            string ID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _context.Users.FindAsync(ID);
+            if(user == null)
+            {
+                return BadRequest("Authentication token doesn't correspond to a valid user.");
+            }
+
+            var post = await _context.Posts.FindAsync(id);
+            if(post == null)
+            {
+                return NotFound();
+            }
+            _context.Entry(post).Reference(b => b.Company).Load();
+            var company = post.Company;
+            if (company.OwnerId != user.Id)
+            {
+                return BadRequest("You can't delete post since you are not the owner of the page.");
+            }
+
+            _context.Posts.Remove(post);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        [HttpPut]
+        [Authorize]
+        public async Task<IActionResult> UpdatePost(string id, PostDTO dto)
+        {
+            var post = await _context.Posts.FindAsync(id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+            _mapper.Map(dto, post);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException) when (!PostExists(id))
+            {
+                return NotFound();
+            }
+
+            return Ok();
+        }
+
+
+        private bool PostExists(string id)
+        {
+            return _context.Posts.Any(e => e.PostId == id);
+        }
     }
 }
