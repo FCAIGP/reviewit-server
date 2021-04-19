@@ -29,7 +29,7 @@ namespace ReviewItServer.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<ActionResult<PostView>> GetPost(string id)
         {
             var post = await _context.Posts.FindAsync(id);
@@ -65,7 +65,7 @@ namespace ReviewItServer.Controllers
             return CreatedAtAction("GetPost", new { id = post.PostId }, _mapper.Map<PostView>(post));
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [Authorize]
         public async Task<IActionResult> DeletePost(string id)
         {
@@ -94,7 +94,7 @@ namespace ReviewItServer.Controllers
             return NoContent();
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         [Authorize]
         public async Task<IActionResult> UpdatePost(string id, PostDTO dto)
         {
