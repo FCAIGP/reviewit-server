@@ -30,15 +30,26 @@ namespace ReviewItServer.Controllers
             _mapper = mapper;
         }
 
-        // GET: api/Company
+        /// <summary>
+        /// Returns a list of all companies in the system. In the future, this will be limited to a certain maximum number of returned items.
+        /// </summary>
+        /// <response code="200">Returned when the company list is properly fetched.</response>  
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<CompanyView>>> GetCompanyList()
         {
             return await _context.Companies.Select(company => _mapper.Map<CompanyView>(company)).ToListAsync();
         }
 
-        // GET: api/Company/id
+        /// <summary>
+        /// Returns a specific company by id.
+        /// </summary>
+        /// <param name="id">The id of the company to be fetched</param>
+        /// <response code="200">Returned when the company is properly fetched.</response>  
+        /// <response code="404">Returned when no company exists with the given id.</response>  
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<CompanyView>> GetCompany(string id)
         {
             var companyPage = await _context.Companies.FindAsync(id);
@@ -51,9 +62,17 @@ namespace ReviewItServer.Controllers
             return _mapper.Map<CompanyView>(companyPage);
         }
 
-        // PUT: api/Company/id
+        /// <summary>
+        /// Updates a specific company by id. (requires admin privilege)
+        /// </summary>
+        /// <param name="id">The id of the company to be updated</param>
+        /// <param name="dto">The new data of the company</param>
+        /// <response code="200">Returned when the company is properly updated.</response>  
+        /// <response code="404">Returned when no company exists with the given id.</response>  
         [HttpPut("{id}")]
         [Authorize(Roles = Roles.Admin)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateCompany(string id, CompanyDTO dto)
         {
             var companyPage = await _context.Companies.FindAsync(id);
@@ -75,9 +94,16 @@ namespace ReviewItServer.Controllers
             return Ok();
         }
 
-        // POST: api/Company
+        /// <summary>
+        /// Creates and adds a new company to the system (requires user privilege).
+        /// </summary>
+        /// <param name="dto">The data of the new company</param>
+        /// <response code="400">Returned when an authentication error occurs.</response>  
+        /// <response code="201">Returned when the company is created and added to the system sucessfully.</response>  
         [Authorize]
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<CompanyView>> CreateCompany(CompanyDTO dto)
         {
             string id = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -93,9 +119,16 @@ namespace ReviewItServer.Controllers
             return CreatedAtAction("GetCompany", new { id = company.CompanyId }, _mapper.Map<CompanyView>(company));
         }
 
-        // DELETE: api/Company/id
+        /// <summary>
+        /// Deletes a specific company by id (requires admin privilege)
+        /// </summary>
+        /// <param name="id">The id of the company to be deleted</param>
+        /// <response code="404">Returned when no company exists with the given id.</response>  
+        /// <response code="204">Returned when the company is deleted successfully.</response>  
         [Authorize(Roles = Roles.Admin)]
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteCompany(string id)
         {
             var company = await _context.Companies.FindAsync(id);
@@ -110,12 +143,15 @@ namespace ReviewItServer.Controllers
             return NoContent();
         }
 
-        private bool CompanyExists(string id)
-        {
-            return _context.Companies.Any(e => e.CompanyId == id);
-        }
-
+        /// <summary>
+        /// Returns a list of all reviews on a specific company by id
+        /// </summary>
+        /// <param name="id">The id of the company</param>
+        /// <response code="404">Returned when no company exists with the given id.</response>  
+        /// <response code="200">Returned when the review list is properly fetched.</response>  
         [HttpGet("{id}/reviews")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<ReviewView>>> GetReviews(string id)
         {
             var companyPage = await _context.Companies.FindAsync(id);
@@ -127,6 +163,12 @@ namespace ReviewItServer.Controllers
             return companyPage.Reviews.Select(v=>_mapper.Map<ReviewView>(v)).ToList();
         }
 
+        /// <summary>
+        /// Returns a list of all posts on a specific company by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <response code="404">Returned when no company exists with the given id.</response>  
+        /// <response code="200">Returned when the post list is properly fetched.</response>  
         [HttpGet("{id}/posts")]
         public async Task<ActionResult<IEnumerable<PostView>>> GetPosts(string id)
         {
@@ -137,6 +179,11 @@ namespace ReviewItServer.Controllers
             }
             await _context.Entry(companyPage).Collection(v => v.Posts).LoadAsync();
             return companyPage.Posts.Select(v => _mapper.Map<PostView>(v)).ToList();
+        }
+
+        private bool CompanyExists(string id)
+        {
+            return _context.Companies.Any(e => e.CompanyId == id);
         }
     }
 }

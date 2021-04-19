@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ReviewItServer</name>
+    </assembly>
+    <members>
+        <member name="M:ReviewItServer.Controllers.CompanyController.GetCompanyList">
+            <summary>
+            Returns a list of all companies in the system. In the future, this will be limited to a certain maximum number of returned items.
+            </summary>
+            <response code="200">Returned when the company list is properly fetched.</response>  
+        </member>
+        <member name="M:ReviewItServer.Controllers.CompanyController.GetCompany(System.String)">
+            <summary>
+            Returns a specific company by id.
+            </summary>
+            <param name="id">The id of the company to be fetched</param>
+            <response code="200">Returned when the company is properly fetched.</response>  
+            <response code="404">Returned when no company exists with the given id.</response>  
+        </member>
+        <member name="M:ReviewItServer.Controllers.CompanyController.UpdateCompany(System.String,ReviewItServer.DTOs.CompanyDTO)">
+            <summary>
+            Updates a specific company by id. (requires admin privilege)
+            </summary>
+            <param name="id">The id of the company to be updated</param>
+            <param name="dto">The new data of the company</param>
+            <response code="200">Returned when the company is properly updated.</response>  
+            <response code="404">Returned when no company exists with the given id.</response>  
+        </member>
+        <member name="M:ReviewItServer.Controllers.CompanyController.CreateCompany(ReviewItServer.DTOs.CompanyDTO)">
+            <summary>
+            Creates and adds a new company to the system (requires user privilege).
+            </summary>
+            <param name="dto">The data of the new company</param>
+            <response code="400">Returned when an authentication error occurs.</response>  
+            <response code="201">Returned when the company is created and added to the system sucessfully.</response>  
+        </member>
+        <member name="M:ReviewItServer.Controllers.CompanyController.DeleteCompany(System.String)">
+            <summary>
+            Deletes a specific company by id (requires admin privilege)
+            </summary>
+            <param name="id">The id of the company to be deleted</param>
+            <response code="404">Returned when no company exists with the given id.</response>  
+            <response code="204">Returned when the company is deleted successfully.</response>  
+        </member>
+        <member name="M:ReviewItServer.Controllers.CompanyController.GetReviews(System.String)">
+            <summary>
+            Returns a list of all reviews on a specific company by id
+            </summary>
+            <param name="id">The id of the company</param>
+            <response code="404">Returned when no company exists with the given id.</response>  
+            <response code="200">Returned when the review list is properly fetched.</response>  
+        </member>
+        <member name="M:ReviewItServer.Controllers.CompanyController.GetPosts(System.String)">
+            <summary>
+            Returns a list of all posts on a specific company by id
+            </summary>
+            <param name="id"></param>
+            <response code="404">Returned when no company exists with the given id.</response>  
+            <response code="200">Returned when the post list is properly fetched.</response>  
+        </member>
+    </members>
+</doc>
