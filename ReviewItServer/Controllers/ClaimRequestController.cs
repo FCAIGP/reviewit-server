@@ -88,7 +88,7 @@ namespace ReviewItServer.Controllers
                 return BadRequest("An authentication error has been encountered!");
             }
             var company = await _context.Companies.FindAsync(dto.CompanyID);
-            company.PendingStatusChange = true;
+            
             var claimRequest = _mapper.Map<ClaimRequest>(dto);
             claimRequest.Submitter = user;
             claimRequest.ClaimStatus = ClaimStatus.Pending;

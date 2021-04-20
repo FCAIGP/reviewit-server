@@ -228,6 +228,44 @@
             <response code ="404">Returned if Review was not found</response>
             <response code ="200">Returned if list of Replies is fetched successfully</response>
         </member>
+        <member name="M:ReviewItServer.Controllers.StatusChangeRequestController.GetStatusChangeRequest(System.String)">
+            <summary>
+            Returns StatusChangeRequest with specific id (requires User priveleges)
+            </summary>
+            <param name="id">The id of the Request</param>
+            <response code="401">Returned if user is not Authorized (not logged in)</response>
+            <response code="404">Returned if request is not found</response>
+            <response code="400">Returned if user is not Authorized (not Owner of the company page)</response>
+            <response code="200">Returned when request is fetched successfully</response>
+        </member>
+        <member name="M:ReviewItServer.Controllers.StatusChangeRequestController.CreateStatusChangeRequest(ReviewItServer.DTOs.StatusChangeRequestDTO)">
+            <summary>
+            Creates a new Status Change Request and add it to the system (requires User priveleges)
+            </summary>
+            <param name="dto">The data of the Request</param>
+            <response code="401">User is not Authorized (not logged in)</response>
+            <response code="400">Returned if Authentication error occured OR User is not Owner of Company Page</response>
+            <response code="404">Returned if Company Page doesn't exist</response>
+            <response code="201">Returned a new Status Change Request is created successfully and added to the system</response>
+        </member>
+        <member name="M:ReviewItServer.Controllers.StatusChangeRequestController.Accept(System.String)">
+            <summary>
+            Accepts a Status Change Request with specific id (requires Admin priveleges)
+            </summary>
+            <param name="id">The id of Request</param>
+            <response code="404">Returned if Request was not found</response>
+            <response code="403">Returned if user is prohiibted from this action (Not Admin)</response>
+            <response code="200">Returned Request is Accepted successfully OR Old status same as New status</response>
+        </member>
+        <member name="M:ReviewItServer.Controllers.StatusChangeRequestController.Reject(System.String)">
+            <summary>
+            Rejects a Status Change Request with specific id (requires Admin priveleges)
+            </summary>
+            <param name="id">The id of Request</param>
+            <response code="404">Returned if Request was not found</response>
+            <response code="403">Returned if user is prohiibted from this action (Not Admin)</response>
+            <response code="200">Returned Request is rejected successfully</response>
+        </member>
         <member name="M:ReviewItServer.Controllers.VotesController.GetVotes(System.String)">
             <summary>
             Returns Votes of a Review with specific id

@@ -61,6 +61,8 @@ namespace ReviewItServer.Models
             ClaimRequestsHistory = new Collection<ClaimRequest>();
             AcceptedClaimRequest = null;
             Posts = new Collection<Post>();
+            CloseStatus = CloseOptions.Open;
+            StatusHistory = new Collection<StatusChangeRequest>();
         }
     }
 }

@@ -113,7 +113,7 @@ namespace ReviewItServer.Controllers
                 return BadRequest("Authentication token doesn't correspond to a valid user.");
             }
             var company = _mapper.Map<Company>(dto);
-            company.Owner = user;
+            // company.Owner = user;
             _context.Companies.Add(company);
             await _context.SaveChangesAsync();
             return CreatedAtAction("GetCompany", new { id = company.CompanyId }, _mapper.Map<CompanyView>(company));
@@ -187,5 +187,8 @@ namespace ReviewItServer.Controllers
         {
             return _context.Companies.Any(e => e.CompanyId == id);
         }
+
+
+
     }
 }

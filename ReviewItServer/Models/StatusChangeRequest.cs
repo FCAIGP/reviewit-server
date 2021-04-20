@@ -20,5 +20,8 @@ namespace ReviewItServer.Models
         public string Description { get; set; }
         [Required]
         public DateTime Date { get; set; }
+        [ForeignKey(nameof(Company))]
+        public string CompanyId { get; set; }
+        public virtual Company Company { get; set; }
     }
 }

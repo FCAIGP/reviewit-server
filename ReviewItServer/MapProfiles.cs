@@ -52,4 +52,13 @@ namespace ReviewItServer.MapProfiles
             CreateMap<DTOs.PostDTO, Models.Post>();
         }
     }
+
+    public class StatusChangeRequestProfile : Profile
+    {
+        public StatusChangeRequestProfile()
+        {
+            CreateMap<Models.StatusChangeRequest, ViewModels.StatusChangeRequestView>();
+            CreateMap<DTOs.StatusChangeRequestDTO, Models.StatusChangeRequest>();
+        }
+    }
 }
