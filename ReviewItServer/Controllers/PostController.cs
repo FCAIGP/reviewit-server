@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ReviewItServer.Data;
@@ -29,7 +30,16 @@ namespace ReviewItServer.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Returns a Post by specific id
+        /// </summary>
+        /// <param name="id">The id of the post to be fetched</param>
+        /// <returns></returns>
+        /// <response code="404">Returned if Post was not found</response>
+        /// <response code="200">Returned if Post was fetched successfully</response>
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<PostView>> GetPost(string id)
         {
             var post = await _context.Posts.FindAsync(id);
@@ -40,8 +50,16 @@ namespace ReviewItServer.Controllers
             return _mapper.Map<PostView>(post);
         }
 
+        /// <summary>
+        /// Creates and adds a new Post to a Company Page (requires that user is the Owner of the company)
+        /// </summary>
+        /// <param name="dto">The data of the new Post</param>
+        /// <response code = "400">Returned if authentication error occurs OR user is not owner of the company page</response>
+        /// <response code = "201">Returned if request is successful and a new Post is added to system</response>
         [HttpPost]
         [Authorize]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<PostView>> CreatePost(PostDTO dto)
         {
             string id = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -65,8 +83,18 @@ namespace ReviewItServer.Controllers
             return CreatedAtAction("GetPost", new { id = post.PostId }, _mapper.Map<PostView>(post));
         }
 
+        /// <summary>
+        /// Deletes a Post with specific id (requires that user is Owner of the company)
+        /// </summary>
+        /// <param name="id">The id of the post to be deleted</param>
+        /// <response code = "400">Returned if authentication error occurs Or user is not owner of the company page</response>
+        /// <response code = "404">Returned if Post was not found</response>
+        /// <response code = "204">Returned if system fulfilled request successfully</response>
         [HttpDelete("{id}")]
         [Authorize]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> DeletePost(string id)
         {
             string ID = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -94,8 +122,19 @@ namespace ReviewItServer.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Updates Post with specific id (requires that user is owner of the Company Page)
+        /// </summary>
+        /// <param name="id">The id of the Post to be updated</param>
+        /// <param name="dto">The new Post data</param>
+        /// <response code = "400">Returned if authentication error occurs OR user is not owner of Company Page</response>
+        /// <response code="404">Returned if Post was not found</response>
+        /// <response code="200">Returned if Post was successfully updated in the system</response>
         [HttpPut("{id}")]
         [Authorize]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> UpdatePost(string id, PostDTO dto)
         {
             string ID = User.FindFirstValue(ClaimTypes.NameIdentifier);

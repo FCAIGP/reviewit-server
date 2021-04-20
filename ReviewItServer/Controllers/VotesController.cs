@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ReviewItServer.Data;
 using ReviewItServer.Models;
@@ -20,7 +21,15 @@ namespace ReviewItServer.Controllers
         }
 
         // GET: api/Review/id/votes
+        /// <summary>
+        /// Returns Votes of a Review with specific id
+        /// </summary>
+        /// <param name="id">The id of the Review</param>
+        /// <response code="404">Returned if Review was not found</response>
+        /// <response code="200">Returned if Votes was fetched successfully</response>
         [HttpGet("{id}/votes")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<VotesView>> GetVotes(string id)
         {
             var review = await _context.Reviews.FindAsync(id);
@@ -37,16 +46,40 @@ namespace ReviewItServer.Controllers
         }
 
         // PUT: api/Review/id/upvote
+        /// <summary>
+        /// Upvotes a Review with specific id
+        /// </summary>
+        /// <param name="id">The id of the Review</param>
+        /// <response code="401">Returned if user is not Authorized (not logged in)</response>
+        /// <response code = "404">Returned if Review was not found</response>
+        /// <response code = "200">Returned if Review was Upvoted successfully OR Vote changed to Upvote</response>
+        /// <response code = "400">Returned if Authenticaiton error occured</response>
         [HttpPut("{id}/upvote")]
         [Authorize]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult> Upvote(string id)
         {
             return await PerformVote(id, true);
         }
 
         // PUT: api/Review/id/downvote
+        /// <summary>
+        /// Downvotes a Review with specific id
+        /// </summary>
+        /// <param name="id">The id of the Review</param>
+        /// <response code = "404">Returned if Review was not found</response>
+        /// <response code="401">Returned if user is not Authorized (not logged in)</response>
+        /// <response code = "200">Returned if Review was Downvoted successfully OR Vote changed to Downvote</response>
+        /// <response code = "400">Returned if Authenticaiton error occured</response>
         [HttpPut("{id}/downvote")]
         [Authorize]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> Downvote(string id)
         {
             return await PerformVote(id, false);

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -29,8 +30,16 @@ namespace ReviewItServer.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Allows users to log into the system
+        /// </summary>
+        /// <param name="model">The data of the user</param>
+        /// <response code="200">Returned if user is logged in successfully</response>
+        /// <response code="401">Returned if user is not authorized (No user with given credentials was found)</response>
         [AllowAnonymous]
         [HttpPost("login")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> Login([FromBody] LoginDTO model)
         {
             var user = await _userManager.FindByNameAsync(model.Username);
@@ -63,8 +72,16 @@ namespace ReviewItServer.Controllers
             return Unauthorized();
         }
 
+        /// <summary>
+        /// Allows non-users to register in the system
+        /// </summary>
+        /// <param name="dto">The data of the user</param>
+        /// <response code="200">Returned if user registered successfully in the system</response>
+        /// <response code="400">Returned if failure happens during registeration</response>
         [AllowAnonymous]
         [HttpPost("register")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Register([FromBody] UserDto dto)
         {
             if (ModelState.IsValid)
@@ -81,15 +98,30 @@ namespace ReviewItServer.Controllers
             return BadRequest("Something failed!");
         }
 
+        /// <summary>
+        /// Checks if user is logged in (requires User priveleges)
+        /// </summary>
+        /// <response code="200">Returned if User is logged in</response>
+        /// <response code="401">Returned if User is not logged in</response>
         [Authorize]
         [HttpGet("isUser")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public IActionResult IsUser()
         {
             return Ok();
         }
+
+        /// <summary>
+        /// Checks if user is admin (requires Admin priveleges)
+        /// </summary>
+        /// <response code ="200">Returned if user is logged in and Admin</response>
+        /// <response code ="401">Returned if user is not Admin</response>
         [Authorize(Roles = Roles.Admin)]
         [HttpGet]
         [Route("isAdmin")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public IActionResult IsAdmin()
         {
             return Ok();

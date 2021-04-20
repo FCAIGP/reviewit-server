@@ -170,6 +170,8 @@ namespace ReviewItServer.Controllers
         /// <response code="404">Returned when no company exists with the given id.</response>  
         /// <response code="200">Returned when the post list is properly fetched.</response>  
         [HttpGet("{id}/posts")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<PostView>>> GetPosts(string id)
         {
             var companyPage = await _context.Companies.FindAsync(id);

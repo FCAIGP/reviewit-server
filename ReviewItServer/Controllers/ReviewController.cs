@@ -28,8 +28,16 @@ namespace ReviewItServer.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Returns a Review with specific id
+        /// </summary>
+        /// <param name="id">The id of the Review</param>
+        /// <response code="404">Returned if Review was not found</response>
+        /// <response code="200">Returned if Review was fetched successfully</response>
         // GET: api/Review/id
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<ReviewView>> GetReview(string id)
         {
             var review = await _context.Reviews.FindAsync(id);
@@ -42,8 +50,16 @@ namespace ReviewItServer.Controllers
             return _mapper.Map<ReviewView>(review);
         }
 
+        /// <summary>
+        /// Creates a new Review and adds it to the system
+        /// </summary>
+        /// <param name="dto">The data of the Review</param>
+        /// <response code="400">Returned if Authenticated error occurs OR CompanyId doesn't exist</response>
+        /// <response code="201">Returned if Review was created successfully and added to the system</response>
         // POST: api/Review
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<ReviewView>> CreateReview(ReviewDTO dto)
         {
             User user = null;
@@ -74,9 +90,19 @@ namespace ReviewItServer.Controllers
             return CreatedAtAction("GetReview", new { id = review.ReviewId }, _mapper.Map<ReviewView>(review));
         }
 
+        /// <summary>
+        /// Deletes a Review with specific id (requires Admin priveleges)
+        /// </summary>
+        /// <param name="id">The id of the Review to be deleted</param>
+        /// <response code="401">Returned if User is not Authorized (not admin)</response>
+        /// <response code="404">Returned if Review was not found</response>
+        /// <response code="204">Returned if Review was deleted successfully</response>
         // DELETE: api/Review/id
         [Authorize(Roles = Utility.Roles.Admin)]
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> DeleteReview(string id)
         {
 
@@ -92,7 +118,15 @@ namespace ReviewItServer.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Returns a list of Replies for a Review with specific id
+        /// </summary>
+        /// <param name="id">The id of the Review</param>
+        /// <response code ="404">Returned if Review was not found</response>
+        /// <response code ="200">Returned if list of Replies is fetched successfully</response>
         [HttpGet("{id}/replies")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<ReplyView>>> GetReplies(string id)
         {
             var review = await _context.Reviews.FindAsync(id);
