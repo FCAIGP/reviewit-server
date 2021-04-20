@@ -111,6 +111,9 @@ namespace ReviewItServer.Controllers
         /// <response code="200">Returned Request is Accepted successfully OR Old status same as New status</response>
         [Authorize(Roles = Roles.Admin)]
         [HttpPut("{id}/accept")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> Accept(string id)
         {
             var statusChangeRequest = await _context.StatusChangeRequests.FindAsync(id);
@@ -141,6 +144,9 @@ namespace ReviewItServer.Controllers
         /// <response code="200">Returned Request is rejected successfully</response>
         [Authorize(Roles = Roles.Admin)]
         [HttpPut("{id}/reject")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> Reject(string id)
         {
             var statusChangeRequest = await _context.StatusChangeRequests.FindAsync(id);
