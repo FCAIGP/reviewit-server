@@ -65,6 +65,7 @@ namespace ReviewItServer.Controllers
                     ) ;
                 return Ok(new
                 {
+                    userId = user.Id,
                     token = new JwtSecurityTokenHandler().WriteToken(token),
                     expiration = token.ValidTo
                 });

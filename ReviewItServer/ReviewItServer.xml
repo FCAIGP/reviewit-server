@@ -266,6 +266,14 @@
             <response code="403">Returned if user is prohiibted from this action (Not Admin)</response>
             <response code="200">Returned Request is rejected successfully</response>
         </member>
+        <member name="M:ReviewItServer.Controllers.UserController.GetUser(System.String)">
+            <summary>
+            Returns User with specific id
+            </summary>
+            <param name="id">The id of the User</param>
+            <response code="404">Returned if no User found with specified id</response>
+            <response code="200">Returned if User was feteched successfully</response>
+        </member>
         <member name="M:ReviewItServer.Controllers.VotesController.GetVotes(System.String)">
             <summary>
             Returns Votes of a Review with specific id

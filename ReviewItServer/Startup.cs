@@ -43,7 +43,7 @@ namespace ReviewItServer
                 options.AddDefaultPolicy(
                               builder =>
                               {
-                                  builder.AllowAnyOrigin();
+                                  builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
                                   //builder.WithOrigins("https://localhost").AllowAnyHeader().AllowAnyMethod();
                               });
             });

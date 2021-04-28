@@ -33,6 +33,8 @@ namespace ReviewItServer.MapProfiles
             CreateMap<DTOs.UserDto, Models.User>()
                 .ForMember(x => x.CurrentCompanyCompanyId, opt => opt.MapFrom(y => y.CurrentCompanyId))
                 .ForSourceMember(x => x.Password, opt => opt.DoNotValidate());
+
+            CreateMap<Models.User, ViewModels.UserView>();
         }
     }
     public class ClaimRequestProfile : Profile
