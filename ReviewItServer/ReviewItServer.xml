@@ -12,17 +12,16 @@
             <response code="200">Returned if user is logged in successfully</response>
             <response code="401">Returned if user is not authorized (No user with given credentials was found)</response>
         </member>
-        <member name="M:ReviewItServer.Controllers.AuthController.RefreshToken(System.String)">
+        <member name="M:ReviewItServer.Controllers.AuthController.RefreshToken">
             <summary>
             Generates a new JWT token using the refresh token stored in cookies.
             </summary>
-            <param name="userId">The userId of the user to fetch a new token for.</param>
             <response code="200">Returned if token was refreshed successfully</response>
             <response code="401">Returned for invalid authentication</response>
         </member>
         <member name="M:ReviewItServer.Controllers.AuthController.RevokeToken">
             <summary>
-            Revokes the current refresh token, must be stored in cookies. (requires User priveleges)
+            Revokes the current refresh token, must be stored in cookies.
             </summary>
             <response code="200">Returned if refresh token was revoked successfully</response>
             <response code="401">Returned for invalid authentication</response>

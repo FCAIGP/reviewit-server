@@ -30,6 +30,19 @@ namespace ReviewItServer.Controllers
             _mapper = mapper;
         }
 
+        private async Task<User> CheckGoodRefreshToken()
+        {
+            var userId = Request.Cookies["review-it-id"];
+            var refreshToken = Request.Cookies["review-it-refresh"];
+            if (userId == null || refreshToken == null) return null;
+
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user == null || user.SecurityStamp != refreshToken)
+                return null;
+
+            return user;
+        }
 
         private async Task<IActionResult> GenerateJwtTokenResponse(User user)
         {
@@ -76,46 +89,43 @@ namespace ReviewItServer.Controllers
                 return Unauthorized();
 
             Response.Cookies.Append("review-it-refresh", user.SecurityStamp);
+            Response.Cookies.Append("review-it-id", user.Id);
 
             return await GenerateJwtTokenResponse(user);
     }
         /// <summary>
         /// Generates a new JWT token using the refresh token stored in cookies.
         /// </summary>
-        /// <param name="userId">The userId of the user to fetch a new token for.</param>
         /// <response code="200">Returned if token was refreshed successfully</response>
         /// <response code="401">Returned for invalid authentication</response>
         [AllowAnonymous]
         [HttpGet("refresh-token")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> RefreshToken(string userId)
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> RefreshToken()
         {
-            var user = await _userManager.FindByIdAsync(userId);
-            if (user == null) return Unauthorized("userId doesn't correspond to an existing user.");
+            var user = await CheckGoodRefreshToken();
 
-            var refreshToken = Request.Cookies["review-it-refresh"];
-            if (refreshToken == null || user.SecurityStamp != refreshToken)
+            if (user == null)
                 return Unauthorized("Refresh Token is invalid, check it exists or login again.");
 
             return await GenerateJwtTokenResponse(user);
         }
+
         /// <summary>
-        /// Revokes the current refresh token, must be stored in cookies. (requires User priveleges)
+        /// Revokes the current refresh token, must be stored in cookies.
         /// </summary>
         /// <response code="200">Returned if refresh token was revoked successfully</response>
         /// <response code="401">Returned for invalid authentication</response>
-        [Authorize]
+        [AllowAnonymous]
         [HttpDelete("revoke-token")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> RevokeToken()
         {
-            string id = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var user = await _userManager.FindByIdAsync(id);
-            if (user == null) return Unauthorized("userId doesn't correspond to an existing user.");
-            
-            var refreshToken = Request.Cookies["review-it-refresh"];
-            if (refreshToken == null || user.SecurityStamp != refreshToken)
+            var user = await CheckGoodRefreshToken();
+
+            if (user == null)
                 return Unauthorized("Refresh Token is invalid, check it exists or login again.");
 
             await _userManager.UpdateSecurityStampAsync(user);
