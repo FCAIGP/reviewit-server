@@ -4,15 +4,30 @@
         <name>ReviewItServer</name>
     </assembly>
     <members>
-        <member name="M:ReviewItServer.Controllers.AuthenticateController.Login(ReviewItServer.DTOs.LoginDTO)">
+        <member name="M:ReviewItServer.Controllers.AuthController.Login(ReviewItServer.DTOs.LoginDTO)">
             <summary>
-            Allows users to log into the system
+            Allows users to log into the system, returns token in response body and adds refresh token as an HttpOnly cookie.
             </summary>
             <param name="model">The data of the user</param>
             <response code="200">Returned if user is logged in successfully</response>
             <response code="401">Returned if user is not authorized (No user with given credentials was found)</response>
         </member>
-        <member name="M:ReviewItServer.Controllers.AuthenticateController.Register(ReviewItServer.DTOs.UserDto)">
+        <member name="M:ReviewItServer.Controllers.AuthController.RefreshToken(System.String)">
+            <summary>
+            Generates a new JWT token using the refresh token stored in cookies.
+            </summary>
+            <param name="userId">The userId of the user to fetch a new token for.</param>
+            <response code="200">Returned if token was refreshed successfully</response>
+            <response code="401">Returned for invalid authentication</response>
+        </member>
+        <member name="M:ReviewItServer.Controllers.AuthController.RevokeToken">
+            <summary>
+            Revokes the current refresh token, must be stored in cookies. (requires User priveleges)
+            </summary>
+            <response code="200">Returned if refresh token was revoked successfully</response>
+            <response code="401">Returned for invalid authentication</response>
+        </member>
+        <member name="M:ReviewItServer.Controllers.AuthController.Register(ReviewItServer.DTOs.UserDto)">
             <summary>
             Allows non-users to register in the system
             </summary>
@@ -20,14 +35,14 @@
             <response code="200">Returned if user registered successfully in the system</response>
             <response code="400">Returned if failure happens during registeration</response>
         </member>
-        <member name="M:ReviewItServer.Controllers.AuthenticateController.IsUser">
+        <member name="M:ReviewItServer.Controllers.AuthController.IsUser">
             <summary>
-            Checks if user is logged in (requires User priveleges)
+            Checks if user is logged in and has a valid token (requires User priveleges)
             </summary>
             <response code="200">Returned if User is logged in</response>
             <response code="401">Returned if User is not logged in</response>
         </member>
-        <member name="M:ReviewItServer.Controllers.AuthenticateController.IsAdmin">
+        <member name="M:ReviewItServer.Controllers.AuthController.IsAdmin">
             <summary>
             Checks if user is admin (requires Admin priveleges)
             </summary>
