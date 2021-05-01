@@ -9,6 +9,8 @@ namespace ReviewItServer.ViewModels
     {
         public int Upvotes { get; set; }
         public int Downvotes { get; set; }
+        public string UserId { get; set; }
+        public string ReviewId { get; set; }
         public VotesView(int upVotes, int downVotes)
         {
             Upvotes = upVotes;

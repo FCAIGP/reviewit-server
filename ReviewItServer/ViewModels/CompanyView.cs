@@ -19,5 +19,6 @@ namespace ReviewItServer.ViewModels
         public double Score { get; set; }
         public CloseOptions CloseStatus { get; set; }
         public string OwnerId { get; set; }
+        public string AcceptedClaimRequestId { get; set; }
     }
 }
