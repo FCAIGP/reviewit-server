@@ -1,0 +1,326 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ReviewItServer</name>
+    </assembly>
+    <members>
+        <member name="M:ReviewItServer.Controllers.AuthController.Logout">
+            <summary>
+            Clears the refresh token HttpOnly cookie from the user's browser.
+            </summary>
+            <response code="200">Always returned</response>
+        </member>
+        <member name="M:ReviewItServer.Controllers.AuthController.Login(ReviewItServer.DTOs.LoginDTO)">
+            <summary>
+            Allows users to log into the system, returns token in response body and adds refresh token as an HttpOnly cookie.
+            </summary>
+            <param name="model">The data of the user</param>
+            <response code="200">Returned if user is logged in successfully</response>
+            <response code="401">Returned if user is not authorized (No user with given credentials was found)</response>
+        </member>
+        <member name="M:ReviewItServer.Controllers.AuthController.RefreshToken">
+            <summary>
+            Generates a new JWT token using the refresh token stored in cookies.
+            </summary>
+            <response code="200">Returned if token was refreshed successfully</response>
+            <response code="401">Returned for invalid authentication</response>
+        </member>
+        <member name="M:ReviewItServer.Controllers.AuthController.RevokeToken">
+            <summary>
+            Revokes the current refresh token, must be stored in cookies.
+            </summary>
+            <response code="200">Returned if refresh token was revoked successfully</response>
+            <response code="401">Returned for invalid authentication</response>
+        </member>
+        <member name="M:ReviewItServer.Controllers.AuthController.Register(ReviewItServer.DTOs.UserDto)">
+            <summary>
+            Allows non-users to register in the system
+            </summary>
+            <param name="dto">The data of the user</param>
+            <response code="200">Returned if user registered successfully in the system</response>
+            <response code="400">Returned if failure happens during registeration</response>
+        </member>
+        <member name="M:ReviewItServer.Controllers.AuthController.IsUser">
+            <summary>
+            Checks if user is logged in and has a valid token (requires User priveleges)
+            </summary>
+            <response code="200">Returned if User is logged in</response>
+            <response code="401">Returned if User is not logged in</response>
+        </member>
+        <member name="M:ReviewItServer.Controllers.AuthController.IsAdmin">
+            <summary>
+            Checks if user is admin (requires Admin priveleges)
+            </summary>
+            <response code ="200">Returned if user is logged in and Admin</response>
+            <response code ="401">Returned if user is not Admin</response>
+        </member>
+        <member name="M:ReviewItServer.Controllers.ClaimRequestController.GetClaimRequestList">
+            <summary>
+            Returns a list of all Company Claim Requests (requires Admin priveleges)
+            </summary>
+            <response code="401">Returned if user is not Authorized to view Claim Requests</response>
+            <response code="200">Returned when list of ClaimRequests is proberly fetched</response>
+        </member>
+        <member name="M:ReviewItServer.Controllers.ClaimRequestController.GetClaimRequest(System.String)">
+            <summary>
+            Returns a Claim Request with specific id
+            </summary>
+            <param name="id">The id of the Claim Request</param>
+            <response code="401">Returned if user is not Authorized to view Claim Request</response>
+            <response code="404">Returned if no Claim Request was found</response>
+            <response code="200">Returned when Claim Request is proberly fetched</response>
+        </member>
+        <member name="M:ReviewItServer.Controllers.ClaimRequestController.CreateClaimRequest(ReviewItServer.DTOs.ClaimRequestDTO)">
+            <summary>
+            Creates a new Claim Request and add it to the system (requires User priveleges)
+            </summary>
+            <param name="dto">The data of the Claim Request</param>
+            <response code="401">Returned if user is not Authorized (not logged in)</response>
+            <response code="400">Returned if Authentication error occurs</response>
+            <response code="201">Returned when request is handled successfully and a new ClaimRequest is added to system</response>
+        </member>
+        <member name="M:ReviewItServer.Controllers.ClaimRequestController.Accept(System.String)">
+            <summary>
+            Accepts a Claim Request with specific id (requires Admin priveleges)
+            </summary>
+            <param name="id">The id of the Claim Request to be Accepted</param>
+            <response code="401">Returned if user is not Authorized</response>
+            <response code="404">Returned if Claim Request is not found</response>
+            <response code="200">Returned if Claim Request status is changed to Approved OR Request is already Approved</response>
+        </member>
+        <member name="M:ReviewItServer.Controllers.ClaimRequestController.Reject(System.String)">
+            <summary>
+            Rejects a Claim Request with specific id (requires Admin priveleges)
+            </summary>
+            <param name="id">The id of the Claim Request to be Rejected</param>
+            <response code="401">Returned if user is not Authorized</response>
+            <response code="404">Returned if Claim Request is not found</response>
+            <response code="200">Returned if Claim Request status is changed to Rejected OR Request is already Rejected</response>
+        </member>
+        <member name="M:ReviewItServer.Controllers.CompanyController.GetCompanyList">
+            <summary>
+            Returns a list of all companies in the system. In the future, this will be limited to a certain maximum number of returned items.
+            </summary>
+            <response code="200">Returned when the company list is properly fetched.</response>  
+        </member>
+        <member name="M:ReviewItServer.Controllers.CompanyController.GetCompany(System.String)">
+            <summary>
+            Returns a specific company by id.
+            </summary>
+            <param name="id">The id of the company to be fetched</param>
+            <response code="200">Returned when the company is properly fetched.</response>  
+            <response code="404">Returned when no company exists with the given id.</response>  
+        </member>
+        <member name="M:ReviewItServer.Controllers.CompanyController.UpdateCompany(System.String,ReviewItServer.DTOs.CompanyDTO)">
+            <summary>
+            Updates a specific company by id. (requires admin privilege)
+            </summary>
+            <param name="id">The id of the company to be updated</param>
+            <param name="dto">The new data of the company</param>
+            <response code="200">Returned when the company is properly updated.</response>  
+            <response code="404">Returned when no company exists with the given id.</response>  
+        </member>
+        <member name="M:ReviewItServer.Controllers.CompanyController.CreateCompany(ReviewItServer.DTOs.CompanyDTO)">
+            <summary>
+            Creates and adds a new company to the system (requires user privilege).
+            </summary>
+            <param name="dto">The data of the new company</param>
+            <response code="400">Returned when an authentication error occurs.</response>  
+            <response code="201">Returned when the company is created and added to the system sucessfully.</response>  
+        </member>
+        <member name="M:ReviewItServer.Controllers.CompanyController.DeleteCompany(System.String)">
+            <summary>
+            Deletes a specific company by id (requires admin privilege)
+            </summary>
+            <param name="id">The id of the company to be deleted</param>
+            <response code="404">Returned when no company exists with the given id.</response>  
+            <response code="204">Returned when the company is deleted successfully.</response>  
+        </member>
+        <member name="M:ReviewItServer.Controllers.CompanyController.GetReviews(System.String)">
+            <summary>
+            Returns a list of all reviews on a specific company by id
+            </summary>
+            <param name="id">The id of the company</param>
+            <response code="404">Returned when no company exists with the given id.</response>  
+            <response code="200">Returned when the review list is properly fetched.</response>  
+        </member>
+        <member name="M:ReviewItServer.Controllers.CompanyController.GetPosts(System.String)">
+            <summary>
+            Returns a list of all posts on a specific company by id
+            </summary>
+            <param name="id"></param>
+            <response code="404">Returned when no company exists with the given id.</response>  
+            <response code="200">Returned when the post list is properly fetched.</response>  
+        </member>
+        <member name="M:ReviewItServer.Controllers.PostController.GetPost(System.String)">
+            <summary>
+            Returns a Post by specific id
+            </summary>
+            <param name="id">The id of the post to be fetched</param>
+            <returns></returns>
+            <response code="404">Returned if Post was not found</response>
+            <response code="200">Returned if Post was fetched successfully</response>
+        </member>
+        <member name="M:ReviewItServer.Controllers.PostController.CreatePost(ReviewItServer.DTOs.PostDTO)">
+            <summary>
+            Creates and adds a new Post to a Company Page (requires that user is the Owner of the company)
+            </summary>
+            <param name="dto">The data of the new Post</param>
+            <response code = "400">Returned if authentication error occurs OR user is not owner of the company page</response>
+            <response code = "201">Returned if request is successful and a new Post is added to system</response>
+        </member>
+        <member name="M:ReviewItServer.Controllers.PostController.DeletePost(System.String)">
+            <summary>
+            Deletes a Post with specific id (requires that user is Owner of the company)
+            </summary>
+            <param name="id">The id of the post to be deleted</param>
+            <response code = "400">Returned if authentication error occurs Or user is not owner of the company page</response>
+            <response code = "404">Returned if Post was not found</response>
+            <response code = "204">Returned if system fulfilled request successfully</response>
+        </member>
+        <member name="M:ReviewItServer.Controllers.PostController.UpdatePost(System.String,ReviewItServer.DTOs.PostDTO)">
+            <summary>
+            Updates Post with specific id (requires that user is owner of the Company Page)
+            </summary>
+            <param name="id">The id of the Post to be updated</param>
+            <param name="dto">The new Post data</param>
+            <response code = "400">Returned if authentication error occurs OR user is not owner of Company Page</response>
+            <response code="404">Returned if Post was not found</response>
+            <response code="200">Returned if Post was successfully updated in the system</response>
+        </member>
+        <member name="M:ReviewItServer.Controllers.ReplyController.GetReply(System.String)">
+            <summary>
+            Returns Reply with specific id
+            </summary>
+            <param name="id">The id of the reply</param>
+            <response code="404">Returned if no Reply found</response>
+            <response code="200">Returned if Reply was feteched successfully</response>
+        </member>
+        <member name="M:ReviewItServer.Controllers.ReplyController.CreateReply(ReviewItServer.DTOs.ReplyDTO)">
+            <summary>
+            Adds a new Reply to the system (requires User priveleges)
+            </summary>
+            <param name="dto">The data of the Reply</param>
+            <response code="401">Returned if User is not Authorized (not logged in)</response>
+            <response code="400">Returned if Authentication error occurs OR ParentID(Review ID) doesn't exist</response>
+            <response code="201">Returned new Reply is created and successfully added to the system</response>
+        </member>
+        <member name="M:ReviewItServer.Controllers.ReplyController.DeleteReply(System.String)">
+            <summary>
+            Delete a Reply with specific id (requires User privileges)
+            </summary>
+            <param name="id">The id of the Reply to be deleted</param>
+            <response code="401">Returned if User is not Authorized (not logged in)</response>
+            <response code="400">Returned if Authentication error occurs</response>
+            <response code="404">Returned if Reply was not found</response>
+            <response code="204">Returned if deletion is handled successfully</response>
+        </member>
+        <member name="M:ReviewItServer.Controllers.ReviewController.GetReview(System.String)">
+            <summary>
+            Returns a Review with specific id
+            </summary>
+            <param name="id">The id of the Review</param>
+            <response code="404">Returned if Review was not found</response>
+            <response code="200">Returned if Review was fetched successfully</response>
+        </member>
+        <member name="M:ReviewItServer.Controllers.ReviewController.CreateReview(ReviewItServer.DTOs.ReviewDTO)">
+            <summary>
+            Creates a new Review and adds it to the system
+            </summary>
+            <param name="dto">The data of the Review</param>
+            <response code="400">Returned if Authenticated error occurs OR CompanyId doesn't exist</response>
+            <response code="201">Returned if Review was created successfully and added to the system</response>
+        </member>
+        <member name="M:ReviewItServer.Controllers.ReviewController.DeleteReview(System.String)">
+            <summary>
+            Deletes a Review with specific id (requires Admin priveleges)
+            </summary>
+            <param name="id">The id of the Review to be deleted</param>
+            <response code="401">Returned if User is not Authorized (not admin)</response>
+            <response code="404">Returned if Review was not found</response>
+            <response code="204">Returned if Review was deleted successfully</response>
+        </member>
+        <member name="M:ReviewItServer.Controllers.ReviewController.GetReplies(System.String)">
+            <summary>
+            Returns a list of Replies for a Review with specific id
+            </summary>
+            <param name="id">The id of the Review</param>
+            <response code ="404">Returned if Review was not found</response>
+            <response code ="200">Returned if list of Replies is fetched successfully</response>
+        </member>
+        <member name="M:ReviewItServer.Controllers.StatusChangeRequestController.GetStatusChangeRequest(System.String)">
+            <summary>
+            Returns StatusChangeRequest with specific id (requires User priveleges)
+            </summary>
+            <param name="id">The id of the Request</param>
+            <response code="401">Returned if user is not Authorized (not logged in)</response>
+            <response code="404">Returned if request is not found</response>
+            <response code="400">Returned if user is not Authorized (not Owner of the company page)</response>
+            <response code="200">Returned when request is fetched successfully</response>
+        </member>
+        <member name="M:ReviewItServer.Controllers.StatusChangeRequestController.CreateStatusChangeRequest(ReviewItServer.DTOs.StatusChangeRequestDTO)">
+            <summary>
+            Creates a new Status Change Request and add it to the system (requires User priveleges)
+            </summary>
+            <param name="dto">The data of the Request</param>
+            <response code="401">User is not Authorized (not logged in)</response>
+            <response code="400">Returned if Authentication error occured OR User is not Owner of Company Page</response>
+            <response code="404">Returned if Company Page doesn't exist</response>
+            <response code="201">Returned a new Status Change Request is created successfully and added to the system</response>
+        </member>
+        <member name="M:ReviewItServer.Controllers.StatusChangeRequestController.Accept(System.String)">
+            <summary>
+            Accepts a Status Change Request with specific id (requires Admin priveleges)
+            </summary>
+            <param name="id">The id of Request</param>
+            <response code="404">Returned if Request was not found</response>
+            <response code="403">Returned if user is prohiibted from this action (Not Admin)</response>
+            <response code="200">Returned Request is Accepted successfully OR Old status same as New status</response>
+        </member>
+        <member name="M:ReviewItServer.Controllers.StatusChangeRequestController.Reject(System.String)">
+            <summary>
+            Rejects a Status Change Request with specific id (requires Admin priveleges)
+            </summary>
+            <param name="id">The id of Request</param>
+            <response code="404">Returned if Request was not found</response>
+            <response code="403">Returned if user is prohiibted from this action (Not Admin)</response>
+            <response code="200">Returned Request is rejected successfully</response>
+        </member>
+        <member name="M:ReviewItServer.Controllers.UserController.GetUser(System.String)">
+            <summary>
+            Returns User with specific id
+            </summary>
+            <param name="id">The id of the User</param>
+            <response code="404">Returned if no User found with specified id</response>
+            <response code="200">Returned if User was feteched successfully</response>
+        </member>
+        <member name="M:ReviewItServer.Controllers.VotesController.GetVotes(System.String)">
+            <summary>
+            Returns Votes of a Review with specific id
+            </summary>
+            <param name="id">The id of the Review</param>
+            <response code="404">Returned if Review was not found</response>
+            <response code="200">Returned if Votes was fetched successfully</response>
+        </member>
+        <member name="M:ReviewItServer.Controllers.VotesController.Upvote(System.String)">
+            <summary>
+            Upvotes a Review with specific id
+            </summary>
+            <param name="id">The id of the Review</param>
+            <response code="401">Returned if user is not Authorized (not logged in)</response>
+            <response code = "404">Returned if Review was not found</response>
+            <response code = "200">Returned if Review was Upvoted successfully OR Vote changed to Upvote</response>
+            <response code = "400">Returned if Authenticaiton error occured</response>
+        </member>
+        <member name="M:ReviewItServer.Controllers.VotesController.Downvote(System.String)">
+            <summary>
+            Downvotes a Review with specific id
+            </summary>
+            <param name="id">The id of the Review</param>
+            <response code = "404">Returned if Review was not found</response>
+            <response code="401">Returned if user is not Authorized (not logged in)</response>
+            <response code = "200">Returned if Review was Downvoted successfully OR Vote changed to Downvote</response>
+            <response code = "400">Returned if Authenticaiton error occured</response>
+        </member>
+    </members>
+</doc>
