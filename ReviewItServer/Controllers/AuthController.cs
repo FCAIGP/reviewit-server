@@ -73,6 +73,20 @@ namespace ReviewItServer.Controllers
         }
 
         /// <summary>
+        /// Clears the refresh token HttpOnly cookie from the user's browser.
+        /// </summary>
+        /// <response code="200">Always returned</response>
+        [AllowAnonymous]
+        [HttpGet("logout")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public IActionResult Logout()
+        {
+            Response.Cookies.Delete("review-it-refresh");
+            Response.Cookies.Delete("review-it-id");
+            return Ok();
+        }
+
+        /// <summary>
         /// Allows users to log into the system, returns token in response body and adds refresh token as an HttpOnly cookie.
         /// </summary>
         /// <param name="model">The data of the user</param>

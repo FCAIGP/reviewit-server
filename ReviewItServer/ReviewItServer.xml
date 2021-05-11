@@ -4,6 +4,12 @@
         <name>ReviewItServer</name>
     </assembly>
     <members>
+        <member name="M:ReviewItServer.Controllers.AuthController.Logout">
+            <summary>
+            Clears the refresh token HttpOnly cookie from the user's browser.
+            </summary>
+            <response code="200">Always returned</response>
+        </member>
         <member name="M:ReviewItServer.Controllers.AuthController.Login(ReviewItServer.DTOs.LoginDTO)">
             <summary>
             Allows users to log into the system, returns token in response body and adds refresh token as an HttpOnly cookie.
