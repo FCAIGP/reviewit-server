@@ -41,7 +41,7 @@ namespace ReviewItServer.Controllers
             int allVotes = review.Votes.Count;
             int upvotes = review.Votes.Count(v => v.IsUpVote);
             VotesView votesView = new VotesView(upvotes, allVotes - upvotes);
-
+            votesView.ReviewId = review.ReviewId;
             return votesView;
         }
 
@@ -119,7 +119,9 @@ namespace ReviewItServer.Controllers
             Vote vote = new Vote
             {
                 Review = review,
+                ReviewId = review.ReviewId,
                 IsUpVote = isUpVote,
+                UserId = user.Id,
                 User = user
             };
 
