@@ -82,7 +82,7 @@ namespace ReviewItServer.Controllers
             review.AuthorIP = Request.HttpContext.Connection.RemoteIpAddress.ToString();
             review.Author = user;
             review.Company = company;
-
+            review.CompanyId = dto.CompanyId;
             await _context.Reviews.AddAsync(review);
             company.Reviews.Add(review);
 

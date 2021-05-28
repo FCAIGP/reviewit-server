@@ -32,6 +32,7 @@ namespace ReviewItServer.Models
         public string AuthorIP { get; set; }
         public virtual User Author { get; set; }
         public string AuthorId { get; set; }
+        public string CompanyId { get; set; }
         public virtual Company Company { get; set; }
         public Review()
         {
