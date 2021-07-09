@@ -16,7 +16,7 @@ namespace ReviewItServer.Models
         public string ReviewId { get; set; }
         [Required]
         public DateTime Created { get; set; }
-        [EmailAddress]
+        
         public string Contact { get; set; }
         [Range(0,1000000)]
         public int? Salary { get; set; }

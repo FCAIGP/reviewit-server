@@ -9,7 +9,7 @@ namespace ReviewItServer.DTOs
 {
     public class ReviewDTO
     {
-        [EmailAddress]
+        
         public string Contact { get; set; }
         public int? Salary { get; set; }
         public string JobDescription { get; set; }
