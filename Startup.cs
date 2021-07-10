@@ -125,7 +125,11 @@ namespace ReviewItServer
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ReviewItServer v1"));
+                app.UseSwagger().UseSwaggerUI(s =>
+                {
+                    s.SwaggerEndpoint("/swagger/v1/swagger.json", "ReviewItServer v1");
+                    s.RoutePrefix = "swagger";
+                });
             }
             _ = SeedDb.InitializeAsync(app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope().ServiceProvider);
 
