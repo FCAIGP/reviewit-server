@@ -159,6 +159,7 @@ namespace ReviewItServer.Controllers
             {
                 return NotFound();
             }
+            // Lazy-loading of the reviews, decorating and sending to endpoint.
             await _context.Entry(companyPage).Collection(v => v.Reviews).LoadAsync();
             return companyPage.Reviews.Select(v=>_mapper.Map<ReviewView>(v)).ToList();
         }
