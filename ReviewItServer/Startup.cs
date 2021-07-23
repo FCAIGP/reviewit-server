@@ -87,7 +87,7 @@ namespace ReviewItServer
            });
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ReviewItServer", Version = "v1" });
+                c.SwaggerDoc("v2", new OpenApiInfo { Title = "ReviewItServer", Version = "v2" });
                 c.AddSecurityDefinition("jwt_auth", new OpenApiSecurityScheme
                 {
                     Name = "Bearer",
@@ -121,16 +121,15 @@ namespace ReviewItServer
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+
+            app.UseDeveloperExceptionPage();
+            app.UseSwagger();
+            app.UseSwagger().UseSwaggerUI(s =>
             {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwagger().UseSwaggerUI(s =>
-                {
-                    s.SwaggerEndpoint("/swagger/v1/swagger.json", "ReviewItServer v1");
-                    s.RoutePrefix = "swagger";
-                });
-            }
+                s.SwaggerEndpoint("/swagger/v2/swagger.json", "ReviewItServer v2");
+                s.RoutePrefix = "swagger";
+            });
+            
             _ = SeedDb.InitializeAsync(app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope().ServiceProvider);
 
             app.UseHttpsRedirection();
