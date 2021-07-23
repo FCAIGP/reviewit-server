@@ -87,7 +87,7 @@ namespace ReviewItServer
            });
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v2", new OpenApiInfo { Title = "ReviewItServer", Version = "v2" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ReviewItServer", Version = "v1" });
                 c.AddSecurityDefinition("jwt_auth", new OpenApiSecurityScheme
                 {
                     Name = "Bearer",
@@ -126,7 +126,7 @@ namespace ReviewItServer
             app.UseSwagger();
             app.UseSwagger().UseSwaggerUI(s =>
             {
-                s.SwaggerEndpoint("/swagger/v2/swagger.json", "ReviewItServer v2");
+                s.SwaggerEndpoint("/swagger/v1/swagger.json", "ReviewItServer v1");
                 s.RoutePrefix = "swagger";
             });
             
