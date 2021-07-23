@@ -104,7 +104,7 @@ namespace ReviewItServer.Controllers
         {
             bool isAdmin = User.FindAll(ClaimTypes.Role).Any(v => v.Value == Roles.Admin);
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.Users.FindAsync(userId);
             if (user == null)
             {
                 return BadRequest("An authentication error has been encountered!");
