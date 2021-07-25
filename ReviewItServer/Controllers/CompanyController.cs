@@ -31,7 +31,7 @@ namespace ReviewItServer.Controllers
         }
 
         /// <summary>
-        /// Returns a list of all companies in the system. In the future, this will be limited to a certain maximum number of returned items.
+        /// Returns a list of all companies in the system. In the future, this will be limited to a specific maximum number of returned items.
         /// </summary>
         /// <response code="200">Returned when the company list is properly fetched.</response>  
         [HttpGet]
