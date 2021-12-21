@@ -1,7 +1,13 @@
 # Companies Reviewing System
 It's a web application platform that is responsible for reviewing and scoring the companies and the employees have the right to write their feedback for the companies they had worked for, analyzing these _**english written reviews**_ using a **Machine Learning** approach.
 
-## To view your subscription credits go to [Azure Sponsorships Balance](https://www.microsoftazuresponsorships.com/Balance).
+# Diagrams
+## Usecase Diagram
+![](images/usecase.png)
+## System Design Diagram
+![](images/system_design.png)
+## Entity Relationship Diagram
+![](images/ERD.png)
 
 # To run this project on your machine
 
